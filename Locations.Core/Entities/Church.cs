@@ -1,5 +1,10 @@
 ﻿namespace Locations.Core.Entities
 {
+    /// <summary>
+    /// This represents the properties of a church
+    /// For now these properties focus on getting the location 
+    /// and the minimun info of the church
+    /// </summary>
     public class Church : Entity
     {
         public int CountryId { get; set; }

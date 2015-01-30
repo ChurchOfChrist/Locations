@@ -7,5 +7,6 @@ namespace Locations.Core.IRepositories
         T Add(T entity);
         IEnumerable<T> All();
         T GetById(int id);
+        void SaveChanges();
     }
 }

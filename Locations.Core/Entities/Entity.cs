@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Locations.Core.Entities
 {
+    /// <summary>
+    /// Common Properties of the Entities
+    /// Avoiding repetionions in all the entities
+    /// </summary>
     public abstract class Entity
     {
         [Key]

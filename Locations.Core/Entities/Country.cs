@@ -1,5 +1,8 @@
 ﻿namespace Locations.Core.Entities
 {
+    /// <summary>
+    /// Representation of a country
+    /// </summary>
     public class Country : Entity
     {
         public string Name { get; set; }

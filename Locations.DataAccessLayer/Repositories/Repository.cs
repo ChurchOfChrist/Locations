@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using Locations.Core.Entities;
 using Locations.Core.IRepositories;
 using Locations.DataAccessLayer.Context;
 
@@ -34,6 +37,18 @@ namespace Locations.DataAccessLayer.Repositories
         public T GetById(int id)
         {
             return EntitySet.Find(id);
+        }
+
+        public void SaveChanges()
+        {
+            //Avoid updating creation date and maybe other future property 
+            //When an entity is created the first time
+            foreach (var entry in Context.ChangeTracker.Entries<Entity>()
+                .Where(entry => entry.State == EntityState.Added))
+            {
+                entry.Entity.CreationDate = DateTime.Now;
+            }
+            Context.SaveChanges();
         }
     }
 }

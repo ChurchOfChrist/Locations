@@ -1,5 +1,7 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Data.Entity;
+using System.Linq;
 using Locations.Core.Entities;
 
 namespace Locations.DataAccessLayer.Context
@@ -15,6 +17,7 @@ namespace Locations.DataAccessLayer.Context
         {
             
         }
+
         #region DbSets 
         public DbSet<Country> Countries { get; set; }
         public DbSet<Church> Churches { get; set; }

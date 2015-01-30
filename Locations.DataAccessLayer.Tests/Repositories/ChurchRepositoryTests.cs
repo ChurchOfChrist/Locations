@@ -10,6 +10,7 @@ using Should;
 
 namespace Locations.DataAccessLayer.Tests.Repositories
 {
+
     [TestFixture]
     public class ChurchRepositoryTests
     {
