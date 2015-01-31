@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CountryServiceTests.cs" />
+    <Compile Include="Setups\CountrySetups.cs" />
+    <Compile Include="Setups\RepositorySetups.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Locations.Core\Locations.Core.csproj">

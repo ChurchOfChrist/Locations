@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Locations.Core.Entities;
 using Locations.Core.IRepositories;
 using Locations.Core.Services;
+using Locations.Core.Tests.Setups;
 using NSubstitute;
 using NUnit.Framework;
 using Should;
@@ -13,26 +12,29 @@ namespace Locations.Core.Tests.Services
     [TestFixture]
     public class CountryServiceTests
     {
+        private ICountryRepository Repo { get; set; }
+
         #region Get country list
+
+        [SetUp]
+        public void Klk()
+        {
+            Repo = Substitute.For<ICountryRepository>();
+        }
+
         [Test]
         public void GetAllCountriesShouldReturnEmptyIfThereisntAnyCountry()
         {
-            var repo = Substitute.For<ICountryRepository>();
-            new CountryService(repo).GetAll().Any().ShouldBeFalse();
+            new CountryService(Repo).GetAll().Any().ShouldBeFalse();
         }
+
         [Test]
         public void GetAllCountriesShouldReturnAListOfTheExistingCountries()
         {
-            var repo = Substitute.For<ICountryRepository>();
-            repo.All().Returns(new List<Country>
-            {
-                new Country {CreationDate = DateTime.Now, Name = "Dominican Republic"},
-                new Country {CreationDate = DateTime.Now, Name = "Dominica"},
-                new Country {CreationDate = DateTime.Now, Name = "United States"}
-            }.AsEnumerable());
-            new CountryService(repo).GetAll().Any().ShouldBeTrue();
+            Repo.DefaultList();
+            new CountryService(Repo).GetAll().Any().ShouldBeTrue();
         }
-        #endregion
 
+        #endregion
     }
 }

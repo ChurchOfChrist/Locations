@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.Entity;
-using System.Linq;
 using Locations.Core.Entities;
 
 namespace Locations.DataAccessLayer.Context
@@ -13,7 +11,7 @@ namespace Locations.DataAccessLayer.Context
             
         }
 
-        public ChurchDb(DbConnection connection) : base(connection, true)
+        public ChurchDb(DbConnection connection) : base(connection, contextOwnsConnection: true)
         {
             
         }
