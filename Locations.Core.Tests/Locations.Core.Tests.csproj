@@ -63,6 +63,10 @@
       <Project>{29E52CB1-7465-4C6B-9AFC-2A856FB7299D}</Project>
       <Name>Locations.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Locations.DataAccessLayer\Locations.DataAccessLayer.csproj">
+      <Project>{04AAF009-07C1-4DA4-8116-F12FCFE15561}</Project>
+      <Name>Locations.DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

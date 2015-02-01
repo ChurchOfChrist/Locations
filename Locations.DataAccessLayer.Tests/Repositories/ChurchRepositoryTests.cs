@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Locations.Core.Entities;
+﻿using System.Linq;
 using Locations.Core.IRepositories;
 using Locations.DataAccessLayer.Context;
 using Locations.DataAccessLayer.Repositories;
+using Locations.DataAccessLayer.Tests.Setups;
 using NUnit.Framework;
 using Should;
 
@@ -19,22 +17,13 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         {
             var connection = Effort.DbConnectionFactory.CreateTransient();
             var context = new ChurchDb(connection);
-            context.Countries.AddRange(new List<Country>
-            {
-                new Country {CreationDate = DateTime.Now, Name = "Dominican Republic"},
-                new Country {CreationDate = DateTime.Now, Name = "Dominica"},
-                new Country {CreationDate = DateTime.Now, Name = "United States"}
-            });
-            context.SaveChanges();
-            context.Churches.AddRange(new List<Church>
-            {
-                new Church {Description = "First Church", CountryId = 1, CreationDate = DateTime.Now},
-                new Church {Description = "Second Church", CountryId = 1, CreationDate = DateTime.Now},
-                new Church {Description = "Another Country Church", CountryId = 2, CreationDate = DateTime.Now}
-            });
-            context.SaveChanges();
+            context.DefaultCountries();
+            context.DefaultCities();
+            context.DefaultChurches();
+            context.DefaultChurches();
             _repository = new ChurchRepository(context);
         }
+        #region GetByCountry
         [Test]
         public void GetByCountryShouldReturnAListWhenChurchesBelongsToThatCountry()
         {
@@ -51,18 +40,43 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         public void GetByCountryShouldReturnAListWithOnlyChurchesOfThatCountry()
         {
             const int countryId = 1;
-            _repository.GetByCountry(countryId).ToList().ForEach(c => c.CountryId.ShouldEqual(countryId));
+            _repository.GetByCountry(countryId).ToList().ForEach(c => c.City.CountryId.ShouldEqual(countryId));
+        } 
+        #endregion
+        #region GetByCity
+        [Test]
+        public void GetByCityShouldReturnAListWhenChurchesBelongsToThatCity()
+        {
+            const int cityId = 1;
+            _repository.GetByCity(cityId).ShouldNotBeEmpty();
         }
         [Test]
-        public void GetByCountryShouldReturnAnEmptyListIfTheCountryDoesntHaveAnyChurch()
+        public void GetByCityShouldReturnNothingWhenChurchesBelongsToItCity()
+        {
+            const int cityId = 0;
+            _repository.GetByCity(cityId).ShouldBeEmpty();
+        }
+        [Test]
+        public void GetByCityShouldReturnAListWithOnlyChurchesOfThatCity()
+        {
+            const int cityId = 1;
+            _repository.GetByCity(cityId).ToList().Any(c => c.CityId != cityId).ShouldBeFalse();
+        }
+        #endregion
+
+        #region GetByCityAndSector
+        [Test]
+        public void GetByCityShouldReturnAnEmptyListIfTheCountryDoesntHaveAnyChurch()
         {
             const int countryId = 1;
             const string sectorName = "Sant";
-            _repository.GetByCountryAndSector(countryId, sectorName).ToList().ForEach(c =>
+            _repository.GetByCityAndSector(countryId, sectorName).ToList().ForEach(c =>
             {
-                c.CountryId.ShouldEqual(countryId);
+                c.City.CountryId.ShouldEqual(countryId);
                 c.Sector.ShouldContain(sectorName);
             });
         }
+        #endregion
+
     }
 }

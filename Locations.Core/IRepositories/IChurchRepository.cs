@@ -9,6 +9,7 @@ namespace Locations.Core.IRepositories
         Church Add(Church entity);
         Church GetById(int id);
         IEnumerable<Church> GetByCountry(int countryId);
-        IEnumerable<Church> GetByCountryAndSector(int countryId, string sector);
+        IEnumerable<Church> GetByCityAndSector(int cityId, string sector);
+        IEnumerable<Church> GetByCity(int cityId);
     }
 }

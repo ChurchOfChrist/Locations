@@ -68,7 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepositoryTests.cs" />
     <Compile Include="Repositories\ChurchRepositoryTests.cs" />
+    <Compile Include="Repositories\CityRepositoryTests.cs" />
     <Compile Include="Repositories\CountryRepositoryTests.cs" />
+    <Compile Include="Setups\ContextSetups.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

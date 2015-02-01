@@ -17,7 +17,7 @@ namespace Locations.Core.Tests.Services
         #region Get country list
 
         [SetUp]
-        public void Klk()
+        public void Setups()
         {
             Repo = Substitute.For<ICountryRepository>();
         }

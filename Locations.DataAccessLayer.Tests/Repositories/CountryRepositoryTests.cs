@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Locations.Core.Entities;
+﻿using System.Linq;
 using Locations.Core.IRepositories;
 using Locations.DataAccessLayer.Context;
 using Locations.DataAccessLayer.Repositories;
+using Locations.DataAccessLayer.Tests.Setups;
 using NUnit.Framework;
 using Should;
 
@@ -20,13 +18,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
             var connection = Effort.DbConnectionFactory.CreateTransient();
             var context = new ChurchDb(connection);
             //For the these tests we will add this countries
-            context.Countries.AddRange(new List<Country>
-            {
-                new Country {CreationDate = DateTime.Now, Name = "Dominican Republic"},
-                new Country {CreationDate = DateTime.Now, Name = "Dominica"},
-                new Country {CreationDate = DateTime.Now, Name = "United States"}
-            });
-            context.SaveChanges();
+            context.DefaultCountries();
             _repository = new CountryRepository(context);
         }
         [Test]

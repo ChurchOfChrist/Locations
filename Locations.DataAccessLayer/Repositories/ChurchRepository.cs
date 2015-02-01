@@ -16,18 +16,24 @@ namespace Locations.DataAccessLayer.Repositories
         /// <returns>A list of Churches</returns>
         public IEnumerable<Church> GetByCountry(int countryId)
         {
-            return EntitySet.Where(c => c.CountryId == countryId);
+            return EntitySet.Where(c => c.City.CountryId == countryId);
         }
+
         /// <summary>
         /// All the churches that belongs to a specific country and 
         /// that its sector con match
         /// </summary>
-        /// <param name="countryId">The id of the country</param>
+        /// <param name="cityId"></param>
         /// <param name="sector">the name, cause this can vary a lot, that's why we're saving like a string</param>
         /// <returns>List of all matching churches</returns>
-        public IEnumerable<Church> GetByCountryAndSector(int countryId, string sector)
+        public IEnumerable<Church> GetByCityAndSector(int cityId, string sector)
         {
-            return EntitySet.Where(c => c.CountryId == countryId && c.Sector.Contains(sector));
+            return EntitySet.Where(c => c.CityId == cityId && c.Sector.Contains(sector));
+        }
+
+        public IEnumerable<Church> GetByCity(int cityId)
+        {
+            return EntitySet.Where(c => c.CityId == cityId);
         }
     }
 }
