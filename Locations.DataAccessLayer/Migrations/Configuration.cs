@@ -12,7 +12,7 @@ namespace Locations.DataAccessLayer.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Locations.DataAccessLayer.Context.ChurchDb context)
+        protected override void Seed(Context.ChurchDb context)
         {
             //  This method will be called after migrating to the latest version.
 

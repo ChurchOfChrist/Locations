@@ -49,8 +49,10 @@
     <Compile Include="IRepositories\ICountryRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CityService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Services\ICountryService.cs" />
+    <Compile Include="ViewModels\CityViewModel.cs" />
     <Compile Include="ViewModels\CountryViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

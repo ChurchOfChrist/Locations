@@ -43,6 +43,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
             _repository.GetByCountry(countryId).ToList().ForEach(c => c.City.CountryId.ShouldEqual(countryId));
         } 
         #endregion
+
         #region GetByCity
         [Test]
         public void GetByCityShouldReturnAListWhenChurchesBelongsToThatCity()
@@ -68,13 +69,9 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         [Test]
         public void GetByCityShouldReturnAnEmptyListIfTheCountryDoesntHaveAnyChurch()
         {
-            const int countryId = 1;
-            const string sectorName = "Sant";
-            _repository.GetByCityAndSector(countryId, sectorName).ToList().ForEach(c =>
-            {
-                c.City.CountryId.ShouldEqual(countryId);
-                c.Sector.ShouldContain(sectorName);
-            });
+            const int cityId = 1;
+            const string sectorName = "Los Frailes";
+            _repository.GetByCityAndSector(cityId, sectorName).ShouldBeEmpty();
         }
         #endregion
 

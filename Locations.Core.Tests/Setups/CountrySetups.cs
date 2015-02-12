@@ -11,7 +11,7 @@ namespace Locations.Core.Tests.Setups
             repo.With(
                 new Country { Id = 1, CreationDate = DateTime.Now, Name = "Dominican Republic" },
                 new Country { Id = 2, CreationDate = DateTime.Now, Name = "Dominica" },
-                new Country { Id = 4, CreationDate = DateTime.Now, Name = "United States" });
+                new Country { Id = 3, CreationDate = DateTime.Now, Name = "United States" });
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
+using Effort;
 using Locations.Core.IRepositories;
 using Locations.DataAccessLayer.Context;
 using Locations.DataAccessLayer.Repositories;
@@ -18,7 +18,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         [SetUp]
         public void Setups()
         {
-            var connection = Effort.DbConnectionFactory.CreateTransient();
+            var connection = DbConnectionFactory.CreateTransient();
             _context = new ChurchDb(connection);
             Repository = new CityRepository(_context);
         }

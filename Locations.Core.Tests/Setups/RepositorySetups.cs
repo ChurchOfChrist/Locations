@@ -7,10 +7,11 @@ namespace Locations.Core.Tests.Setups
 {
     public static class RepositorySetups
     {
-        public static void With<T>(this IRepository<T> repository, params T[] country) where T : Entity
+        public static void With<T>(this IRepository<T> repository, params T[] entity) where T : Entity
         {
-            repository.All().Returns(country);
-            repository.GetById(Arg.Any<int>()).Returns(info => country.FirstOrDefault(arg => arg.Id == (int) info[0]));
+            repository.All().Returns(entity);
+            repository.GetById(Arg.Any<int>())
+                .Returns(info => entity.FirstOrDefault(arg => arg.Id == (int) info[0]));
         }
     }
 }
