@@ -23,20 +23,12 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         /// But now lets use Country, and all the repositories should have the same behavior
         /// </summary>
         private readonly IRepository<Country> _repository;
-        /// <summary>
-        /// Let's use this list to test if the All method is working as expected
-        /// </summary>
-        private readonly List<Country> _countries = new List<Country>
-        {
-          new Country {CreationDate = DateTime.Now, Name = "Dominica"},
-                new Country {CreationDate = DateTime.Now, Name = "United States"}  
-        };
-
+       
         public BaseRepositoryTests()
         {
             var connection = Effort.DbConnectionFactory.CreateTransient();
             var context = new ChurchDb(connection);
-            context.Countries.AddRange(_countries);
+            context.Countries.AddRange(EntitySeed.DefaultCountries);
             context.SaveChanges();
             _repository = new Repository<Country>(context);
         }
@@ -55,7 +47,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         [Test]
         public void AllShouldReturnAlistOfAllTheEntitiesIfIthasAny()
         {
-          _repository.All().ToList().ShouldEqual(_countries);
+          _repository.All().ShouldEqual(EntitySeed.DefaultCountries);
         }
         [Test]
         public void GetByIdShouldReturnAnEntityWithTheIdRequested()

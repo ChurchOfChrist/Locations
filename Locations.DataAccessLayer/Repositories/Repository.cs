@@ -13,13 +13,6 @@ namespace Locations.DataAccessLayer.Repositories
     {
         protected DbContext Context;
         protected DbSet<T> EntitySet;
-
-        public Repository()
-        {
-            Context = new ChurchDb();
-            EntitySet = Context.Set<T>();
-        }
-
         public Repository(DbContext context)
         {
             Context = context;

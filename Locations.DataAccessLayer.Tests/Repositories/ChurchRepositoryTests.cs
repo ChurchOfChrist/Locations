@@ -20,7 +20,6 @@ namespace Locations.DataAccessLayer.Tests.Repositories
             context.DefaultCountries();
             context.DefaultCities();
             context.DefaultChurches();
-            context.DefaultChurches();
             _repository = new ChurchRepository(context);
         }
         #region GetByCountry

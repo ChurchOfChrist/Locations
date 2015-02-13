@@ -5,7 +5,7 @@ using Locations.Core.ViewModels;
 
 namespace Locations.Core.Services
 {
-    public class CityService 
+    public class CityService : ICityService
     {
         private readonly ICityRepository _repository;
 

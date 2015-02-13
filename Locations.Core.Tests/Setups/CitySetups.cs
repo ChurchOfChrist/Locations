@@ -1,6 +1,7 @@
-using System;
-using Locations.Core.Entities;
+using System.Linq;
 using Locations.Core.IRepositories;
+using Locations.DataAccessLayer.Context;
+using NSubstitute;
 
 namespace Locations.Core.Tests.Setups
 {
@@ -8,13 +9,9 @@ namespace Locations.Core.Tests.Setups
     {
         public static void DefaultList(this ICityRepository repo)
         {
-            repo.With(
-                new City {Id = 1, CountryId = 1, CreationDate = DateTime.Now, Name = "Santo Domingo"},
-                new City {Id = 2, CountryId = 1, CreationDate = DateTime.Now, Name = "Santiago"},
-                new City {Id = 3, CountryId = 1, CreationDate = DateTime.Now, Name = "La Romana"},
-                new City {Id = 4, CountryId = 1, CreationDate = DateTime.Now, Name = "Puerto Plata"},
-                new City {Id = 5, CountryId = 1, CreationDate = DateTime.Now, Name = "San Juan"}
-                );
+            repo.With(EntitySeed.DefaultCities);
+            repo.GetByCountry(Arg.Any<int>())
+                .Returns(info => EntitySeed.DefaultCities.Where(city => city.CountryId == (int) info[0]));
         }
     }
 }

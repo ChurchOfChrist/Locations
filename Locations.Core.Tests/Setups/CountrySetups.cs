@@ -1,6 +1,5 @@
-using System;
-using Locations.Core.Entities;
 using Locations.Core.IRepositories;
+using Locations.DataAccessLayer.Context;
 
 namespace Locations.Core.Tests.Setups
 {
@@ -8,10 +7,7 @@ namespace Locations.Core.Tests.Setups
     {
         public static void DefaultList(this ICountryRepository repo)
         {
-            repo.With(
-                new Country { Id = 1, CreationDate = DateTime.Now, Name = "Dominican Republic" },
-                new Country { Id = 2, CreationDate = DateTime.Now, Name = "Dominica" },
-                new Country { Id = 3, CreationDate = DateTime.Now, Name = "United States" });
+            repo.With(EntitySeed.DefaultCountries);
         }
     }
 }

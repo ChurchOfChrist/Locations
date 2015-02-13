@@ -16,7 +16,7 @@ namespace Locations.DataAccessLayer.Repositories
         /// <returns>A list of Churches</returns>
         public IEnumerable<Church> GetByCountry(int countryId)
         {
-            return EntitySet.Where(c => c.City.CountryId == countryId);
+            return All().Where(c => c.City.CountryId == countryId);
         }
 
         /// <summary>
@@ -28,12 +28,12 @@ namespace Locations.DataAccessLayer.Repositories
         /// <returns>List of all matching churches</returns>
         public IEnumerable<Church> GetByCityAndSector(int cityId, string sector)
         {
-            return EntitySet.Where(c => c.CityId == cityId && c.Sector.Contains(sector));
+            return All().Where(c => c.CityId == cityId && c.Sector != null && c.Sector.Contains(sector));
         }
 
         public IEnumerable<Church> GetByCity(int cityId)
         {
-            return EntitySet.Where(c => c.CityId == cityId);
+            return All().Where(c => c.CityId == cityId);
         }
     }
 }
