@@ -27,7 +27,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         public void GetByCountryShouldReturnAListWhenChurchesBelongsToThatCountry()
         {
             const int countryId = 1;
-            _repository.GetByCountry(countryId).ShouldNotBeEmpty();
+            _repository.GetByCountry(countryId).Any().ShouldBeTrue();
         }
         [Test]
         public void GetByCountryShouldReturnNothingWhenChurchesBelongsToItCountry()
@@ -48,13 +48,13 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         public void GetByCityShouldReturnAListWhenChurchesBelongsToThatCity()
         {
             const int cityId = 1;
-            _repository.GetByCity(cityId).ShouldNotBeEmpty();
+            _repository.GetByCity(cityId).Any().ShouldBeTrue();
         }
         [Test]
         public void GetByCityShouldReturnNothingWhenChurchesBelongsToItCity()
         {
             const int cityId = 0;
-            _repository.GetByCity(cityId).ShouldBeEmpty();
+            _repository.GetByCity(cityId).Any().ShouldBeFalse();
         }
         [Test]
         public void GetByCityShouldReturnAListWithOnlyChurchesOfThatCity()
@@ -70,9 +70,8 @@ namespace Locations.DataAccessLayer.Tests.Repositories
         {
             const int cityId = 1;
             const string sectorName = "Los Frailes";
-            _repository.GetByCityAndSector(cityId, sectorName).ShouldBeEmpty();
+            _repository.GetByCityAndSector(cityId, sectorName).Any().ShouldBeFalse();
         }
         #endregion
-
     }
 }

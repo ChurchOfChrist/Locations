@@ -2,6 +2,7 @@
 using Locations.Core.IRepositories;
 using Locations.Core.Services;
 using Locations.Core.Tests.Setups;
+using Locations.Core.ViewModels;
 using NSubstitute;
 using NUnit.Framework;
 using Should;
@@ -26,13 +27,13 @@ namespace Locations.Core.Tests.Services
         public void GetByCountryShouldReturnAListWhenChurchesBelongsToThatCountry()
         {
             const int countryId = 1;
-            Service.GetByCountry(countryId).ShouldNotBeEmpty();
+            Service.GetByCountry(countryId).Any().ShouldBeTrue();
         }
         [Test]
         public void GetByCountryShouldReturnNothingWhenChurchesBelongsToThatCountry()
         {
             const int countryId = 5;
-            Service.GetByCountry(countryId).ShouldBeEmpty();
+            Service.GetByCountry(countryId).Any().ShouldBeFalse();
         }
         [Test]
         public void GetByCountryShouldReturnAListWithOnlyChurchesOfThatCountry()
@@ -49,13 +50,13 @@ namespace Locations.Core.Tests.Services
             const int cityId = 1;
             var result = 
             Service.GetByCity(cityId);
-            result.ShouldNotBeEmpty();
+            result.Any().ShouldBeTrue();
         }
         [Test]
         public void GetByCityShouldReturnNothingWhenChurchesBelongsToItCity()
         {
             const int cityId = 0;
-            Service.GetByCity(cityId).ShouldBeEmpty();
+            Service.GetByCity(cityId).Any().ShouldBeFalse();
         }
         [Test]
         public void GetByCityShouldReturnAListWithOnlyChurchesOfThatCity()
@@ -67,14 +68,99 @@ namespace Locations.Core.Tests.Services
 
         #region GetByCityAndSector
         [Test]
-        public void GetByCityShouldReturnAnEmptyListIfTheCountryDoesntHaveAnyChurch()
+        public void GetByCityAndSectorShouldReturnAnEmptyListIfItDoesntHaveAnyChurchMatches()
         {
             const int cityId = 1;
             const string sectorName = "Los Frailes";
             Service.GetByCityAndSector(cityId, sectorName).ShouldBeEmpty();
         }
+        [Test]
+        public void GetByCityAndSectorShouldReturnListIfItHaveAnyChurchMatches()
+        {
+            const int cityId = 1;
+            const string sectorName = "Existing Sector";
+            Service.GetByCityAndSector(cityId, sectorName).ShouldNotBeEmpty();
+        }
         #endregion
 
+        #region Add new church
+
+        [Test]
+        public void ChurchShouldNotBeAddedIfTheSectorIsNullOrEmpty()
+        {
+            var church = new ChurchViewModel
+            {
+                CityId = 1,
+                Description = "Any Description",
+                Latitude = 18.473123M,
+                Longitude = -69.809590M,
+                Preacher = "Any Preacher",
+                PhoneNumber = "809 - Any number"
+            };
+            Service.Add(church).ShouldBeFalse();
+        }
+        [Test]
+        public void ChurchShouldNotBeAddedIfTheCityDoesNotExist()
+        {
+            var church = new ChurchViewModel
+            {
+                CityId = 0,
+                Description = "Any Description",
+                Latitude = 18.473123M,
+                Longitude = -69.809590M,
+                Preacher = "Any Preacher",
+                PhoneNumber = "809 - Any number",
+                Sector = "Any sector"
+            };
+            Service.Add(church).ShouldBeFalse();
+        }
+        [Test]
+        public void ChurchShouldNotBeAddedIfPreacherIsNullOrEmpty()
+        {
+            var church = new ChurchViewModel
+            {
+                CityId = 1,
+                Description = "Any Description",
+                Latitude = 18.473123M,
+                Longitude = -69.809590M,
+                PhoneNumber = "809 - Any number",
+                Sector = "Any sector"
+            };
+            Service.Add(church).ShouldBeFalse();
+        }
+        [Test]
+        public void ChurchShouldNotBeAddedIfPhoneNumberIsNullOrEmpty()
+        {
+            var church = new ChurchViewModel
+            {
+                CityId = 1,
+                Description = "Any Description",
+                Latitude = 18.473123M,
+                Longitude = -69.809590M,
+                Preacher = "Any Preacher",
+                Sector = "Any sector"
+            };
+            Service.Add(church).ShouldBeFalse();
+        }
+
+        [Test]
+        public void ChurchShouldBeAddedContainsAsectorPreacherAndPhoneNumber()
+        {
+            var church = new ChurchViewModel
+            {
+                CityId = 1,
+                Description = "Any Description",
+                Latitude = 18.473123M,
+                Longitude = -69.809590M,
+                Preacher = "Any Preacher",
+                PhoneNumber = "809 - Any number",
+                Sector = "Any sector"
+            };
+            Service.Add(church).ShouldBeTrue();
+        }
+        
+
+        #endregion
 
     }
 }

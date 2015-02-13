@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Effort;
 using Locations.Core.Entities;
 using Locations.Core.IRepositories;
 using Locations.DataAccessLayer.Context;
@@ -26,7 +24,7 @@ namespace Locations.DataAccessLayer.Tests.Repositories
        
         public BaseRepositoryTests()
         {
-            var connection = Effort.DbConnectionFactory.CreateTransient();
+            var connection = DbConnectionFactory.CreateTransient();
             var context = new ChurchDb(connection);
             context.Countries.AddRange(EntitySeed.DefaultCountries);
             context.SaveChanges();

@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using Locations.Core.Entities;
 using Locations.Core.IRepositories;
-using Locations.DataAccessLayer.Context;
 
 namespace Locations.DataAccessLayer.Repositories
 {

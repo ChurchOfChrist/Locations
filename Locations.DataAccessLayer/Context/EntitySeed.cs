@@ -8,15 +8,15 @@ namespace Locations.DataAccessLayer.Context
     public static class EntitySeed
     {
         public static Church[] DefaultChurches = {
-            new Church {Description = "First Church, First City",   CityId = 1, CreationDate = DateTime.Now},
-            new Church {Description = "Second Church, First City",  CityId = 1, CreationDate = DateTime.Now},
-            new Church {Description = "Third Church, First City",   CityId = 1, CreationDate = DateTime.Now},
-            new Church {Description = "First Church, Second City",  CityId = 2, CreationDate = DateTime.Now},
-            new Church {Description = "Second Church, Second City", CityId = 2, CreationDate = DateTime.Now},
-            new Church {Description = "Third Church, Second City",  CityId = 2, CreationDate = DateTime.Now},
-            new Church {Description = "First Church, Third City",   CityId = 3, CreationDate = DateTime.Now},
-            new Church {Description = "Second Church, Third City",  CityId = 3, CreationDate = DateTime.Now},
-            new Church {Description = "Third Church, Third City",   CityId = 2, CreationDate = DateTime.Now}
+            new Church {Description = "First Church, First City", Sector  = "Existing Sector", CityId = 1, CreationDate = DateTime.Now},
+            new Church {Description = "Second Church, First City",Sector  = "Existing Sector",  CityId = 1, CreationDate = DateTime.Now},
+            new Church {Description = "Third Church, First City",Sector  = "Existing Sector",   CityId = 1, CreationDate = DateTime.Now},
+            new Church {Description = "First Church, Second City", Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},
+            new Church {Description = "Second Church, Second City",Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},
+            new Church {Description = "Third Church, Second City", Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},
+            new Church {Description = "First Church, Third City", Sector  = "Existing Sector",  CityId = 3, CreationDate = DateTime.Now},
+            new Church {Description = "Second Church, Third City", Sector  = "Existing Sector", CityId = 3, CreationDate = DateTime.Now},
+            new Church {Description = "Third Church, Third City", Sector  = "Existing Sector",  CityId = 2, CreationDate = DateTime.Now}
         };
 
         public static City[] DefaultCities =

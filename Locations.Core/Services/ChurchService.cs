@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Locations.Core.Entities;
 using Locations.Core.IRepositories;
 using Locations.Core.ViewModels;
 
@@ -27,6 +29,29 @@ namespace Locations.Core.Services
         public List<ChurchViewModel> GetByCityAndSector(int cityId, string sectorName)
         {
             return _repository.GetByCityAndSector(cityId, sectorName).Select(c => new ChurchViewModel(c)).ToList();
+        }
+
+        public bool Add(ChurchViewModel church)
+        {
+            if (String.IsNullOrEmpty(church.Sector) || 
+                church.CityId ==0 || String.IsNullOrEmpty(church.Preacher) 
+                || String.IsNullOrEmpty(church.PhoneNumber))
+            {
+                return false;
+            }
+
+            _repository.Add(new Church
+            {
+                CityId = church.CityId,
+                Description = church.Description,
+                Latitude = church.Latitude,
+                Longitude = church.Longitude,
+                Preacher = church.Preacher,
+                PhoneNumber = church.PhoneNumber,
+                Sector = church.Sector
+            });
+            _repository.SaveChanges();
+            return true;
         }
     }
 }

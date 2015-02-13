@@ -17,6 +17,10 @@ namespace Locations.Core.ViewModels
 
         }
 
+        public ChurchViewModel()
+        {
+        }
+
         #region properties
         public int CityId { get; set; }
         public City City { get; set; }
