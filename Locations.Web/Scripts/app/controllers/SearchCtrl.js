@@ -8,7 +8,7 @@
         .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi',
             function ($scope, uiGmapGoogleMapApi) {
                 var mapService;
-                $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8 };
                 var events = {
                     places_changed: function (searchBox) {
                         console.log(searchBox);
@@ -18,7 +18,6 @@
                         }
                         // For each place, get the icon, place name, and location.
                         var newMarkers = [];
-                        var bounds = new google.maps.LatLngBounds();
                         for (var i = 0, place; place = places[i]; i++) {
                             // Create a marker for each place.
                             var marker = {
@@ -34,35 +33,10 @@
                                 templateparameter: place
                             };
                             newMarkers.push(marker);
-
-                            bounds.extend(place.geometry.location);
                         }
-
-                        $scope.map.bounds = {
-                            northeast: {
-                                latitude: bounds.getNorthEast().lat(),
-                                longitude: bounds.getNorthEast().lng()
-                            },
-                            southwest: {
-                                latitude: bounds.getSouthWest().lat(),
-                                longitude: bounds.getSouthWest().lng()
-                            }
-                        }
-
-                        _.each(newMarkers, function (marker) {
-                            marker.closeClick = function () {
-                                $scope.selected.options.visible = false;
-                                marker.options.visble = false;
-                                return $scope.$apply();
-                            };
-                            marker.onClicked = function () {
-                                $scope.selected.options.visible = false;
-                                $scope.selected = marker;
-                                $scope.selected.options.visible = true;
-                            };
-                        });
 
                         $scope.map.markers = newMarkers;
+                        console.log(newMarkers);
                         $scope.map.center = {latitude: newMarkers[0].latitude, longitude:newMarkers[0].longitude};
                     }
                 }

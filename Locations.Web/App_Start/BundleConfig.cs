@@ -27,11 +27,16 @@ namespace Locations.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular.js"));
+                        "~/Scripts/angular.js",
+                        "~/Scripts/angular-route.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/app/app.js",
+                "~/Scripts/app/configs/map.js",
+                "~/Scripts/app/configs/routes.js",
                 "~/Scripts/app/services/SearchService.js",
+                "~/Scripts/app/controllers/HomeCtrl.js",
                 "~/Scripts/app/controllers/SearchCtrl.js"
                 ));
         }
