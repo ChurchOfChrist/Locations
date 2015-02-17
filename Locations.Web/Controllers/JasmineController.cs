@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 
 namespace Locations.Web.Controllers

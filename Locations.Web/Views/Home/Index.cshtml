@@ -1,12 +1,16 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iglesia de Cristo</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style>
+        .angular-google-map-container {
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top hidden">
@@ -28,22 +32,32 @@
         </div>
     </div>
     <!-- Header -->
-    <header class="header">
+    <header class="header" ng-controller="SearchCtrl">
         <div class="text-vertical-center">
             <h2>¿Donde quieres congregarte?</h2>
             <br>
             <form class="form-inline">
                 <div class="form-group input-group">
-                    <input type="text" class="form-control" />
-                    <span class="input-group-btn">
-                        <button class="btn">Buscar</button>
-                    </span>
+                    <div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
                 </div>
             </form>
+            <ui-gmap-google-map class="angular-google-map-container" center='map.center' zoom='map.zoom'>
+                <ui-gmap-search-box parentdiv="searchbox.parentDiv" template='searchbox.template' events='searchbox.events'>
+                </ui-gmap-search-box>
+            </ui-gmap-google-map>
         </div>
+
     </header>
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @* <script src="//maps.googleapis.com/maps/api/js?libraries=weather,geometry,visualization,places&sensor=false&language=en&v=3.17"></script>
+    *@
+    <script src="~/Scripts/lodash.min.js"></script>
+    <script src="~/Scripts/angular-google-maps.min.js"></script>
+
+    @Scripts.Render("~/bundles/app")
 </body>
 </html>
-
