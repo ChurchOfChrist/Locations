@@ -2,13 +2,20 @@
     'use strict';
     angular.module('app')
         .run(['$templateCache', function ($templateCache) {
-            $templateCache.put('searchbox.tpl.html', '<input id="pac-input" class="pac-controls form-control" type="text" placeholder="Search">');
-            $templateCache.put('window.tpl.html', '<div ng-controller="WindowCtrl" ng-init="showPlaceDetails(parameter)">{{place.name}}</div>');
+            $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="pac-controls form-control" type="text" placeholder="Search">');
         }])
-        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi',
-            function ($scope, uiGmapGoogleMapApi) {
-                var mapService;
-                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8 };
+        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log','$timeout',
+            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
+                var clickEvent = function (themap, eventNam, args) {
+                    $timeout(function() {
+                        $scope.newChurchMarker.coords = {
+                            latitude: args[0].latLng.lat(),
+                            longitude: args[0].latLng.lng()
+                        };
+                        $scope.newChurchMarker.options.visible = true;
+                    });
+                }
+                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };
                 var events = {
                     places_changed: function (searchBox) {
                         console.log(searchBox);
@@ -16,39 +23,47 @@
                         if (places.length === 0) {
                             return;
                         }
-                        // For each place, get the icon, place name, and location.
-                        var newMarkers = [];
-                        for (var i = 0, place; place = places[i]; i++) {
-                            // Create a marker for each place.
-                            var marker = {
-                                id: i,
-                                place_id: place.place_id,
-                                name: place.name,
-                                latitude: place.geometry.location.lat(),
-                                longitude: place.geometry.location.lng(),
-                                options: {
-                                    visible: false
-                                },
-                                templateurl: 'window.tpl.html',
-                                templateparameter: place
-                            };
-                            newMarkers.push(marker);
-                        }
-
-                        $scope.map.markers = newMarkers;
-                        console.log(newMarkers);
-                        $scope.map.center = {latitude: newMarkers[0].latitude, longitude:newMarkers[0].longitude};
+                        $scope.map.center = { latitude: places[0].geometry.location.lat(), longitude: places[0].geometry.location.lng() };
                     }
                 }
                 $scope.searchbox = { template: 'searchbox.tpl.html', events: events, parentDiv: 'searchDiv' };
-
-                // uiGmapGoogleMapApi is a promise.
-                // The "then" callback function provides the google.maps object.
                 uiGmapGoogleMapApi.then(function (maps) {
-                    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-                    mapService = maps;
-                    console.log(mapService);
+                    if ($routeParams.address) {
+                        $scope.searchText = $routeParams.address;
+                    }
                 });
+                $scope.newChurchMarker = {
+                    id: 0,
+                    coords: {
+                        latitude: 18.4667,
+                        longitude: -69.9499
+                    },
+                    options: {
+                        draggable: true,
+                        visible: false
+                    },
+                    events: {
+                        dragend: function (marker, eventName, args) {
+                            $log.log('marker dragend');
+                            var lat = marker.getPosition().lat();
+                            var lon = marker.getPosition().lng();
+                            $log.log(lat);
+                            $log.log(lon);
+
+                            $scope.newChurchMarker.options = {
+                                draggable: true,
+                                labelContent: "lat: " + $scope.newChurchMarker.coords.latitude + ' ' + 'lon: ' + $scope.newChurchMarker.coords.longitude,
+                                labelAnchor: "100 0",
+                                labelClass: "marker-labels"
+                            };
+                        }
+                    }
+                };
             }
-        ]);
+        ]).controller('controlCtrl', ['$scope', '$log', function ($scope, $log) {
+            var $parent = $scope.$parent;
+            $scope.controlClick = function () {
+            };
+
+        }]);
 })();

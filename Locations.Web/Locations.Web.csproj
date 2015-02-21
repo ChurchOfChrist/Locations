@@ -214,6 +214,7 @@
     <Content Include="Scripts\app\configs\map.js" />
     <Content Include="Scripts\app\configs\routes.js" />
     <Content Include="Scripts\app\services\SearchService.js" />
+    <Content Include="Scripts\app\templates\newchurch.html" />
     <Content Include="Scripts\app\views\home.html" />
     <Content Include="Scripts\app\views\search.html" />
     <Content Include="Scripts\jasmine\boot.js" />

@@ -10,15 +10,26 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <div class="form-group input-group">
-                        <div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
+                    <div class="form-group input-group searchForm">
+                        <div id="searchDiv">
+                        </div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
                     </div>
+
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-    <ui-gmap-search-box parentdiv="searchbox.parentDiv" template='searchbox.template' events='searchbox.events'>
+<script type="text/ng-template" id="control.tpl.html">
+    <button class="btn btn-sm btn-primary" ng-click="controlClick()">
+        Agregar congregación.
+    </button>
+</script>
+<ui-gmap-google-map center="map.center" events="map.events" zoom="map.zoom">
+    <ui-gmap-search-box parentdiv="searchbox.parentDiv" template="searchbox.template" events="searchbox.events">
     </ui-gmap-search-box>
+    <ui-gmap-map-control template="control.tpl.html" position="bottom-left" controller="controlCtrl" index="-1">
+    </ui-gmap-map-control>
+    <ui-gmap-marker coords="newChurchMarker.coords" options="newChurchMarker.options" events="newChurchMarker.events" idkey="newChurchMarker.id">
+    </ui-gmap-marker>
 </ui-gmap-google-map>

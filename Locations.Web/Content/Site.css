@@ -32,7 +32,10 @@ body {
         font-size: 4.5em;
         font-weight: 700;
     }
-
 .angular-google-map-container {
     height: 580px;
 }
+.searchForm {
+    margin-top: 10px;
+}
+
