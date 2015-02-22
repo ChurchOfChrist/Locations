@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app')
         .run(['$templateCache', function ($templateCache) {
-            $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="pac-controls form-control" type="text" placeholder="Search">');
+            $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="form-control" type="text" placeholder="Search">');
         }])
         .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log','$timeout',
             function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
@@ -60,10 +60,5 @@
                     }
                 };
             }
-        ]).controller('controlCtrl', ['$scope', '$log', function ($scope, $log) {
-            var $parent = $scope.$parent;
-            $scope.controlClick = function () {
-            };
-
-        }]);
+        ]);
 })();
