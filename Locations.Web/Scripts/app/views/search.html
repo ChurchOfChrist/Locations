@@ -9,19 +9,12 @@
         </div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-left" role="search">
-                <div class="input-group">
-                    <div id="searchDiv">
-                    </div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
-                </div>
+                <div class="input-group"><div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span></div>
             </form>
-            <button class="btn btn-sm btn-primary navbar-btn navbar-right" ng-click="controlClick()">
-                Agregar congregación.
-            </button>
-
+            <button class="btn btn-sm btn-primary navbar-btn navbar-right" ng-click="addChurchEvent()">Agregar congregación</button>
         </div>
     </div>
 </div>
-
 <ui-gmap-google-map center="map.center" events="map.events" zoom="map.zoom">
     <ui-gmap-search-box parentdiv="searchbox.parentDiv" template="searchbox.template" events="searchbox.events">
     </ui-gmap-search-box>

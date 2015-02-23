@@ -4,16 +4,19 @@
         .run(['$templateCache', function ($templateCache) {
             $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="form-control" type="text" placeholder="Search">');
         }])
-        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log','$timeout',
+        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout',
             function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
+                $scope.addingChurch = false;
                 var clickEvent = function (themap, eventNam, args) {
-                    $timeout(function() {
-                        $scope.newChurchMarker.coords = {
-                            latitude: args[0].latLng.lat(),
-                            longitude: args[0].latLng.lng()
-                        };
-                        $scope.newChurchMarker.options.visible = true;
-                    });
+                    if (addingChurch) {
+                        $timeout(function () {
+                            $scope.newChurchMarker.coords = {
+                                latitude: args[0].latLng.lat(),
+                                longitude: args[0].latLng.lng()
+                            };
+                            $scope.newChurchMarker.options.visible = true;
+                        });
+                    }
                 }
                 $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };
                 var events = {
@@ -32,6 +35,10 @@
                         $scope.searchText = $routeParams.address;
                     }
                 });
+
+                $scope.addChurchEvent = function () {
+                    $scope.addingChurch = !$scope.addingChurch;
+                };
                 $scope.newChurchMarker = {
                     id: 0,
                     coords: {
