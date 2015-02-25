@@ -9,15 +9,58 @@
         </div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-left" role="search">
-                <div class="input-group"><div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span></div>
+                <div class="input-group">
+                    <div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
+                </div>
             </form>
             <button class="btn btn-sm btn-primary navbar-btn navbar-right" ng-click="addChurchEvent()">Agregar congregación</button>
         </div>
     </div>
 </div>
-<ui-gmap-google-map center="map.center" events="map.events" zoom="map.zoom">
-    <ui-gmap-search-box parentdiv="searchbox.parentDiv" template="searchbox.template" events="searchbox.events">
-    </ui-gmap-search-box>
-    <ui-gmap-marker coords="newChurchMarker.coords" options="newChurchMarker.options" events="newChurchMarker.events" idkey="newChurchMarker.id">
-    </ui-gmap-marker>
-</ui-gmap-google-map>
+<div class="row">
+    <div ng-class="displayChurchForm ? 'col-md-8' : 'col-md-12'">
+        <ui-gmap-google-map center="map.center" events="map.events" zoom="map.zoom">
+            <ui-gmap-search-box parentdiv="searchbox.parentDiv" template="searchbox.template" events="searchbox.events">
+            </ui-gmap-search-box>
+            <ui-gmap-marker coords="Church.coords" options="Church.options" events="Church.events" idkey="Church.id">
+            </ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
+    <div ng-if="displayChurchForm" class="col-md-4">
+        <h3 class="text-success">Agregar congregación</h3>
+        <div class="col-md-12">
+            <h4>
+                <strong>Predicadores</strong>
+                <button ng-click="addPreacher()" class="btn btn-sm btn-info">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </h4>
+        </div>
+        <div class="col-md-12" ng-repeat="preacher in Church.Preachers">
+            <div class="col-md-5">
+                <input type="text" placeholder="Nombre" class="form-control" ng-model="preacher.Name" value="" />
+            </div>
+            <div class="col-md-5">
+                <input type="text" placeholder="Telefono" class="form-control" ng-model="preacher.PhoneNumber" value="" />
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-danger btn-sm" ng-click="removePreacher($index)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            <hr />
+        </div>
+        <div class="col-md-12">
+            <h4>
+                <strong>
+                    Detalles
+                </strong>
+            </h4>
+            <small>En estas lineas te recomendamos poner los horarios de cultos y cualquier otro detalle de relevancia para el visitante.</small>
+        </div>
+        <div class="col-md-12">
+            <textarea ng-model="Church.Details" class="form-control"></textarea>
+        </div>
+    </div>
+</div>
+

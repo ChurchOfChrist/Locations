@@ -8,13 +8,13 @@
             function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
                 $scope.addingChurch = false;
                 var clickEvent = function (themap, eventNam, args) {
-                    if (addingChurch) {
+                    if ($scope.displayChurchForm) {
                         $timeout(function () {
-                            $scope.newChurchMarker.coords = {
+                            $scope.Church.coords = {
                                 latitude: args[0].latLng.lat(),
                                 longitude: args[0].latLng.lng()
                             };
-                            $scope.newChurchMarker.options.visible = true;
+                            $scope.Church.options.visible = true;
                         });
                     }
                 }
@@ -37,9 +37,11 @@
                 });
 
                 $scope.addChurchEvent = function () {
-                    $scope.addingChurch = !$scope.addingChurch;
+                    $scope.displayChurchForm = !$scope.displayChurchForm;
+                    $scope.Church.Preachers = [{ Name: '', PhoneNumber: '' }];
+                    $scope.Church.Details = '';
                 };
-                $scope.newChurchMarker = {
+                $scope.Church = {
                     id: 0,
                     coords: {
                         latitude: 18.4667,
@@ -57,15 +59,22 @@
                             $log.log(lat);
                             $log.log(lon);
 
-                            $scope.newChurchMarker.options = {
+                            $scope.Church.options = {
                                 draggable: true,
-                                labelContent: "lat: " + $scope.newChurchMarker.coords.latitude + ' ' + 'lon: ' + $scope.newChurchMarker.coords.longitude,
+                                labelContent: "lat: " + $scope.Church.coords.latitude + ' ' + 'lon: ' + $scope.Church.coords.longitude,
                                 labelAnchor: "100 0",
                                 labelClass: "marker-labels"
                             };
                         }
                     }
                 };
+                $scope.addPreacher = function () {
+                    $scope.Church.Preachers.push({});
+                    console.log($scope.Church.Preachers);
+                }
+                $scope.removePreacher = function (index) {
+                    $scope.Church.Preachers.splice(index, 1);
+                }
             }
         ]);
 })();
