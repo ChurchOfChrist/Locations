@@ -18,6 +18,7 @@ namespace Locations.Core.Entities
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public DbGeography Location { get; set; }
+        public string Address { get; set; }
         
     }
 }
