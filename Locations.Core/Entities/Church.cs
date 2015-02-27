@@ -1,4 +1,6 @@
-﻿namespace Locations.Core.Entities
+﻿using System.Data.Entity.Spatial;
+
+namespace Locations.Core.Entities
 {
     /// <summary>
     /// This represents the properties of a church
@@ -15,6 +17,7 @@
         public string Description { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public DbGeography Location { get; set; }
         
     }
 }

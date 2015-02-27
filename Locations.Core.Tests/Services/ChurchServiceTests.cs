@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Locations.Core.Helpers;
 using Locations.Core.IRepositories;
 using Locations.Core.Services;
 using Locations.Core.Tests.Setups;
@@ -124,7 +125,8 @@ namespace Locations.Core.Tests.Services
                 Latitude = 18.473123M,
                 Longitude = -69.809590M,
                 PhoneNumber = "809 - Any number",
-                Sector = "Any sector"
+                Sector = "Any sector",
+                Location = GeoHelper.FromLatLng(18.66966526847465, -69.8675537109375)
             };
             Service.Add(church).ShouldBeFalse();
         }
@@ -138,7 +140,7 @@ namespace Locations.Core.Tests.Services
                 Latitude = 18.473123M,
                 Longitude = -69.809590M,
                 Preacher = "Any Preacher",
-                Sector = "Any sector"
+                Sector = "Any sector",
             };
             Service.Add(church).ShouldBeFalse();
         }
@@ -158,9 +160,11 @@ namespace Locations.Core.Tests.Services
             };
             Service.Add(church).ShouldBeTrue();
         }
-        
-
         #endregion
-
+        [Test]
+        public void GetChurchesByBoundingBoxShouldReturnTheChurchesInsideTheBox()
+        {
+            Service.GetInBox(17.78934445183137, 19.29959436933543, -71.22706064453126, -68.78534921875001).Any().ShouldBeTrue();
+        }
     }
 }

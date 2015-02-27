@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -44,6 +47,8 @@
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Enumerations\DbGeographyCSId.cs" />
+    <Compile Include="Helpers\GeoHelper.cs" />
     <Compile Include="IRepositories\IChurchRepository.cs" />
     <Compile Include="IRepositories\ICityRepository.cs" />
     <Compile Include="IRepositories\ICountryRepository.cs" />

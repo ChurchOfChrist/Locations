@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using Locations.Core.Entities;
 using Locations.Core.IRepositories;
@@ -52,6 +53,12 @@ namespace Locations.Core.Services
             });
             _repository.SaveChanges();
             return true;
+        }
+
+        public List<ChurchViewModel> GetInBox(double firstLongitude, double firstLatitude, double secondLongitude, double secondLatitude)
+        {
+            var boundingBox = Helpers.GeoHelper.GetBox(firstLongitude, firstLatitude, secondLongitude, secondLatitude);
+           return _repository.GetInBox(boundingBox).Select(c => new ChurchViewModel(c)).ToList();
         }
     }
 }

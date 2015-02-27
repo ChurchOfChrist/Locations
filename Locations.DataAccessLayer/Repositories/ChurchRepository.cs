@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using Locations.Core.Entities;
 using Locations.Core.IRepositories;
@@ -28,12 +29,18 @@ namespace Locations.DataAccessLayer.Repositories
         /// <returns>List of all matching churches</returns>
         public IEnumerable<Church> GetByCityAndSector(int cityId, string sector)
         {
+          //  All().Where(c => c.loca)
             return All().Where(c => c.CityId == cityId && c.Sector != null && c.Sector.Contains(sector));
         }
 
         public IEnumerable<Church> GetByCity(int cityId)
         {
             return All().Where(c => c.CityId == cityId);
+        }
+
+        public IEnumerable<Church> GetInBox(DbGeography boundingBox)
+        {
+            return All().Where(c => c.Location.Intersects(boundingBox));
         }
     }
 }

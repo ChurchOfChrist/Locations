@@ -53,13 +53,24 @@
         <div class="col-md-12">
             <h4>
                 <strong>
-                    Detalles
+                    Horario de culto
                 </strong>
             </h4>
             <small>En estas lineas te recomendamos poner los horarios de cultos y cualquier otro detalle de relevancia para el visitante.</small>
         </div>
         <div class="col-md-12">
             <textarea ng-model="Church.Details" class="form-control"></textarea>
+        </div>
+        <hr />
+        <div class="col-md-12">
+            <small>
+                Utiliza el zoom para acercar el mapa y da click donde se encuentra la congregación.
+                <br/>
+                Puedes mover la posicion de la Iglesia arrastrando el punto que pusiste.
+            </small>
+            <button ng-click="save(Church)" ng-disabled="!Church.coords" class="btn btn-success btn-sm">
+                Guardar
+            </button>
         </div>
     </div>
 </div>

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Locations.Core.Entities;
+using Locations.Core.Helpers;
 
 namespace Locations.DataAccessLayer.Context
 {
     public static class EntitySeed
     {
         public static Church[] DefaultChurches = {
-            new Church {Description = "First Church, First City", Sector  = "Existing Sector", CityId = 1, CreationDate = DateTime.Now},
-            new Church {Description = "Second Church, First City",Sector  = "Existing Sector",  CityId = 1, CreationDate = DateTime.Now},
-            new Church {Description = "Third Church, First City",Sector  = "Existing Sector",   CityId = 1, CreationDate = DateTime.Now},
+            new Church {Description = "First Church, First City", Sector  = "Existing Sector", CityId = 1, CreationDate = DateTime.Now, Location = GeoHelper.FromLatLng(18.66966526847465, -69.8675537109375)},
+            new Church {Description = "Second Church, First City",Sector  = "Existing Sector",  CityId = 1, CreationDate = DateTime.Now, Location = GeoHelper.FromLatLng(18.66966526847465, -69.8675537109375)},
+            new Church {Description = "Third Church, First City",Sector  = "Existing Sector",   CityId = 1, CreationDate = DateTime.Now, Location = GeoHelper.FromLatLng(18.66966526847465, -69.8675537109375)},
             new Church {Description = "First Church, Second City", Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},
             new Church {Description = "Second Church, Second City",Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},
             new Church {Description = "Third Church, Second City", Sector  = "Existing Sector", CityId = 2, CreationDate = DateTime.Now},

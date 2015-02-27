@@ -40,13 +40,10 @@
                     $scope.displayChurchForm = !$scope.displayChurchForm;
                     $scope.Church.Preachers = [{ Name: '', PhoneNumber: '' }];
                     $scope.Church.Details = '';
+                    $scope.Church.coords = undefined;
                 };
                 $scope.Church = {
                     id: 0,
-                    coords: {
-                        latitude: 18.4667,
-                        longitude: -69.9499
-                    },
                     options: {
                         draggable: true,
                         visible: false
@@ -54,10 +51,10 @@
                     events: {
                         dragend: function (marker, eventName, args) {
                             $log.log('marker dragend');
-                            var lat = marker.getPosition().lat();
-                            var lon = marker.getPosition().lng();
-                            $log.log(lat);
-                            $log.log(lon);
+                            $log.log(marker);
+                           // var lat = marker.getPosition().lat();
+                            //var lon = marker.getPosition().lng();
+                         
 
                             $scope.Church.options = {
                                 draggable: true,
@@ -74,6 +71,9 @@
                 }
                 $scope.removePreacher = function (index) {
                     $scope.Church.Preachers.splice(index, 1);
+                }
+                $scope.save = function(church) {
+                    console.log(church);
                 }
             }
         ]);

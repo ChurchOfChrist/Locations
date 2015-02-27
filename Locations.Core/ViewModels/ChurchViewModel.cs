@@ -1,3 +1,4 @@
+using System.Data.Entity.Spatial;
 using Locations.Core.Entities;
 
 namespace Locations.Core.ViewModels
@@ -14,8 +15,11 @@ namespace Locations.Core.ViewModels
             Latitude = entity.Latitude;
             Longitude = entity.Longitude;
             City = entity.City;
+            Location = entity.Location;
 
         }
+
+        public DbGeography Location { get; set; }
 
         public ChurchViewModel()
         {
