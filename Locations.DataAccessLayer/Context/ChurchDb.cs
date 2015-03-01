@@ -17,9 +17,7 @@ namespace Locations.DataAccessLayer.Context
         }
 
         #region DbSets 
-        public DbSet<Country> Countries { get; set; }
         public DbSet<Church> Churches { get; set; }
-        public DbSet<City> Cities { get; set; }
         #endregion
     }
 }

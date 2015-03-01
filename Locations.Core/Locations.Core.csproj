@@ -45,25 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Church.cs" />
-    <Compile Include="Entities\City.cs" />
-    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Enumerations\DbGeographyCSId.cs" />
     <Compile Include="Helpers\GeoHelper.cs" />
     <Compile Include="IRepositories\IChurchRepository.cs" />
-    <Compile Include="IRepositories\ICityRepository.cs" />
-    <Compile Include="IRepositories\ICountryRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChurchService.cs" />
-    <Compile Include="Services\CityService.cs" />
-    <Compile Include="Services\CountryService.cs" />
     <Compile Include="Services\IChurchService.cs" />
-    <Compile Include="Services\ICityService.cs" />
-    <Compile Include="Services\ICountryService.cs" />
     <Compile Include="ViewModels\ChurchViewModel.cs" />
-    <Compile Include="ViewModels\CityViewModel.cs" />
-    <Compile Include="ViewModels\CountryViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
