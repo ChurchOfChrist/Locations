@@ -8,11 +8,11 @@ namespace Locations.Core.ViewModels
         public ChurchViewModel(Church entity)
         {
             Preacher = entity.Preacher;
-            Location = entity.Location;
+            Latitude = entity.Location.Latitude ?? 0;
+            Longitude = entity.Location.Longitude ?? 0;
             WorshipDays = entity.WorshipDays;
             Address = entity.Address;
         }
-
 
         public ChurchViewModel()
         {
@@ -21,8 +21,9 @@ namespace Locations.Core.ViewModels
         #region properties
         public string Preacher { get; set; }
         public string WorshipDays { get; set; }
-        public DbGeography Location { get; set; }
         public string Address { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         #endregion
     }
 }

@@ -3,14 +3,14 @@ using Locations.DataAccessLayer.Context;
 
 namespace Locations.DataAccessLayer.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ChurchDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<LocationDb>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ChurchDb context)
+        protected override void Seed(LocationDb context)
         {
             //  This method will be called after migrating to the latest version.
 

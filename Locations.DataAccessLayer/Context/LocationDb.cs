@@ -4,14 +4,14 @@ using Locations.Core.Entities;
 
 namespace Locations.DataAccessLayer.Context
 {
-    public class ChurchDb : DbContext
+    public class LocationDb : DbContext
     {
-        public ChurchDb(): base("Database")
+        public LocationDb(): base("Database")
         {
             
         }
 
-        public ChurchDb(DbConnection connection) : base(connection, contextOwnsConnection: true)
+        public LocationDb(DbConnection connection) : base(connection, contextOwnsConnection: true)
         {
             
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Locations.Core.Entities;
 using Locations.Core.Helpers;
 using Locations.Core.IRepositories;
@@ -26,6 +27,7 @@ namespace Locations.Core.Services
             _repository.Add(new Church
             {
                 Preacher = church.Preacher,
+                Location = GeoHelper.FromLatLng(church.Latitude, church.Longitude)
             });
             _repository.SaveChanges();
             return true;
@@ -34,7 +36,8 @@ namespace Locations.Core.Services
         public List<ChurchViewModel> GetInBox(double firstLongitude, double firstLatitude, double secondLongitude, double secondLatitude)
         {
             var boundingBox = GeoHelper.GetBox(firstLongitude, firstLatitude, secondLongitude, secondLatitude);
-           return _repository.GetInBox(boundingBox).Select(c => new ChurchViewModel(c)).ToList();
+            var klk = _repository.GetInBox(boundingBox);
+            return klk.Select(c => new ChurchViewModel(c)).ToList();
         }
     }
 }
