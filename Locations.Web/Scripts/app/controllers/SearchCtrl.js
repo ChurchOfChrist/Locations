@@ -14,15 +14,9 @@
                                 latitude: args[0].latLng.lat(),
                                 longitude: args[0].latLng.lng()
                             };
-                            $log.log('Church');
-                            $log.log($scope.Church.coords);
                             var bounds = themap.getBounds();
                             var ne = bounds.getNorthEast();
                             var sw = bounds.getSouthWest();
-                            var boundstring = 'nelng=' + ne.lng() + '&nelt=' + ne.lat();
-                            boundstring += '&swlng=' + sw.lng() + '&swlt=' + sw.lat();
-                            $log.log(boundstring);
-
                             $http.get('/home/PointsInTheBox', {
                                 params: {
                                     nelng: ne.lng(),
@@ -31,7 +25,7 @@
                                     swlt: sw.lat()
                                 }
                             }).success(function (data) {
-                                $log.log(data);
+                                $log.log(data);//TODO: Display the markets on the map
                             });
                             $scope.Church.options.visible = true;
                         });
@@ -69,12 +63,6 @@
                     },
                     events: {
                         dragend: function (marker, eventName, args) {
-                            $log.log('marker dragend');
-                            $log.log(marker);
-                            // var lat = marker.getPosition().lat();
-                            //var lon = marker.getPosition().lng();
-
-
                             $scope.Church.options = {
                                 draggable: true,
                                 labelContent: "lat: " + $scope.Church.coords.latitude + ' ' + 'lon: ' + $scope.Church.coords.longitude,
@@ -102,7 +90,7 @@
                             days: 'Tolodia'
                         }
                     }).success(function (data) {
-                        $log.log(data);
+                        $log.log(data);//TODOD:Save details
                     });
                 }
             }
