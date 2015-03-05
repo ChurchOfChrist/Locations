@@ -240,7 +240,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -281,6 +283,16 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Locations.Core\Locations.Core.csproj">
+      <Project>{29E52CB1-7465-4C6B-9AFC-2A856FB7299D}</Project>
+      <Name>Locations.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Locations.DataAccessLayer\Locations.DataAccessLayer.csproj">
+      <Project>{04AAF009-07C1-4DA4-8116-F12FCFE15561}</Project>
+      <Name>Locations.DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4,8 +4,8 @@
         .run(['$templateCache', function ($templateCache) {
             $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="form-control" type="text" placeholder="Search">');
         }])
-        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout',
-            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
+        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout', '$http',
+            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout, $http) {
                 $scope.addingChurch = false;
                 var clickEvent = function (themap, eventNam, args) {
                     if ($scope.displayChurchForm) {
@@ -14,6 +14,25 @@
                                 latitude: args[0].latLng.lat(),
                                 longitude: args[0].latLng.lng()
                             };
+                            $log.log('Church');
+                            $log.log($scope.Church.coords);
+                            var bounds = themap.getBounds();
+                            var ne = bounds.getNorthEast();
+                            var sw = bounds.getSouthWest();
+                            var boundstring = 'nelng=' + ne.lng() + '&nelt=' + ne.lat();
+                            boundstring += '&swlng=' + sw.lng() + '&swlt=' + sw.lat();
+                            $log.log(boundstring);
+
+                            $http.get('/home/PointsInTheBox', {
+                                params: {
+                                    nelng: ne.lng(),
+                                    nelt: ne.lat(),
+                                    swlng: sw.lng(),
+                                    swlt: sw.lat()
+                                }
+                            }).success(function (data) {
+                                $log.log(data);
+                            });
                             $scope.Church.options.visible = true;
                         });
                     }
@@ -52,9 +71,9 @@
                         dragend: function (marker, eventName, args) {
                             $log.log('marker dragend');
                             $log.log(marker);
-                           // var lat = marker.getPosition().lat();
+                            // var lat = marker.getPosition().lat();
                             //var lon = marker.getPosition().lng();
-                         
+
 
                             $scope.Church.options = {
                                 draggable: true,
@@ -72,8 +91,19 @@
                 $scope.removePreacher = function (index) {
                     $scope.Church.Preachers.splice(index, 1);
                 }
-                $scope.save = function(church) {
+                $scope.save = function (church) {
                     console.log(church);
+                    $http.get('/home/addpoint', {
+                        params: {
+                            address: $scope.Church.Details,
+                            lat: $scope.Church.coords.latitude,
+                            lng: $scope.Church.coords.longitude,
+                            preacher: 'Yomismo',
+                            days: 'Tolodia'
+                        }
+                    }).success(function (data) {
+                        $log.log(data);
+                    });
                 }
             }
         ]);

@@ -34,7 +34,7 @@ namespace Locations.Core.Tests.Services
                 Preacher = "Any Preacher",
             };
             Service.Add(church).ShouldBeFalse();
-            Service.GetInBox(17.789344, 19.299594, -71.227060, -68.785349).Any().ShouldBeTrue();
+            Service.GetInBox(19.299594, 17.789344, -68.785349, -71.227060).Any().ShouldBeTrue();
         }
 
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Locations.Core.Entities;
 using Locations.Core.Helpers;
 using Locations.Core.IRepositories;
@@ -27,17 +26,23 @@ namespace Locations.Core.Services
             _repository.Add(new Church
             {
                 Preacher = church.Preacher,
-                Location = GeoHelper.FromLatLng(church.Latitude, church.Longitude)
+                Location = GeoHelper.FromLatLng(church.Latitude, church.Longitude),
+                Address = church.Address,
             });
             _repository.SaveChanges();
             return true;
         }
 
-        public List<ChurchViewModel> GetInBox(double firstLongitude, double firstLatitude, double secondLongitude, double secondLatitude)
+        public List<ChurchViewModel> GetInBox(double nelt, double nelng, double swlt, double swlng)
         {
-            var boundingBox = GeoHelper.GetBox(firstLongitude, firstLatitude, secondLongitude, secondLatitude);
+            var boundingBox = GeoHelper.GetBox(nelt, nelng, swlt, swlng);
             var klk = _repository.GetInBox(boundingBox);
             return klk.Select(c => new ChurchViewModel(c)).ToList();
+        }
+
+        public List<ChurchViewModel> GetAll()
+        {
+            return _repository.All().Select(c => new ChurchViewModel(c)).ToList();
         }
     }
 }
