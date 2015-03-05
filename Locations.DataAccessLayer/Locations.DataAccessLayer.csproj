@@ -58,6 +58,14 @@
     <Compile Include="Migrations\201503022005050_Initial.Designer.cs">
       <DependentUpon>201503022005050_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.cs" />
+    <Compile Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.Designer.cs">
+      <DependentUpon>201503052013187_AddingLatAndLngDoublesForChurchPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503052037412_RemovingLocationGeographySpatial.cs" />
+    <Compile Include="Migrations\201503052037412_RemovingLocationGeographySpatial.Designer.cs">
+      <DependentUpon>201503052037412_RemovingLocationGeographySpatial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChurchRepository.cs" />
@@ -98,6 +106,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503022005050_Initial.resx">
       <DependentUpon>201503022005050_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.resx">
+      <DependentUpon>201503052013187_AddingLatAndLngDoublesForChurchPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503052037412_RemovingLocationGeographySpatial.resx">
+      <DependentUpon>201503052037412_RemovingLocationGeographySpatial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

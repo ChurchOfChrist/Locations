@@ -24,8 +24,8 @@ namespace Locations.Web.Controllers
             return ChurchService.Add(new ChurchViewModel
             {
                 Address = address,
-                Latitude = lat,
-                Longitude = lng,
+                Lat = lat,
+                Lng = lng,
                 Preacher = preacher,
                 WorshipDays = days,
             });

@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using Locations.Core.Entities;
-using Locations.Core.Helpers;
 using Locations.Core.Services;
 using Locations.Core.ViewModels;
 using Locations.DataAccessLayer.Repositories;
@@ -29,8 +27,8 @@ namespace Locations.Core.Tests.Services
         {
             var church = new ChurchViewModel
             {
-                Latitude = 18.473123,
-                Longitude = -69.809590,
+                Lat = 18.473123,
+                Lng = -69.809590,
                 Preacher = "Any Preacher",
             };
             Service.Add(church).ShouldBeFalse();

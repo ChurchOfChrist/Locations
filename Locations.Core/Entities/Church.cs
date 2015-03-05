@@ -13,7 +13,8 @@ namespace Locations.Core.Entities
         public string Preacher { get; set; }
         //TODO: Convert this into a entity with Day and time span
         public string WorshipDays { get; set; }
-        public DbGeography Location { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
         public string Address { get; set; }
         
     }

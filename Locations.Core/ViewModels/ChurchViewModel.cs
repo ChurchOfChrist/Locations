@@ -1,4 +1,3 @@
-using System.Data.Entity.Spatial;
 using Locations.Core.Entities;
 
 namespace Locations.Core.ViewModels
@@ -8,10 +7,10 @@ namespace Locations.Core.ViewModels
         public ChurchViewModel(Church entity)
         {
             Preacher = entity.Preacher;
-            Latitude = entity.Location.Latitude ?? 0;
-            Longitude = entity.Location.Longitude ?? 0;
             WorshipDays = entity.WorshipDays;
             Address = entity.Address;
+            Lng = entity.Lng;
+            Lat = entity.Lat;
         }
 
         public ChurchViewModel()
@@ -22,8 +21,8 @@ namespace Locations.Core.ViewModels
         public string Preacher { get; set; }
         public string WorshipDays { get; set; }
         public string Address { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
         #endregion
     }
 }
