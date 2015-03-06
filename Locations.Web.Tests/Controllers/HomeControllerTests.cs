@@ -7,13 +7,13 @@ namespace Locations.Web.Tests.Controllers
     [TestFixture]
     public class HomeControllerTests
     {
+
         [Test]
-        public void IndexShouldReturnAnViewResult()
+        public void HomeControllerShouldContainAnIndexAction()
         {
             var homeController = new HomeController();
             var result = homeController.Index();
             result.ShouldNotBeNull();
         }
-
     }
 }

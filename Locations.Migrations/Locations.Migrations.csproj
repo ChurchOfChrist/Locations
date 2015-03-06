@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{04AAF009-07C1-4DA4-8116-F12FCFE15561}</ProjectGuid>
+    <ProjectGuid>{B12D720F-7875-4E61-B115-549E8883FC37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Locations.DataAccessLayer</RootNamespace>
-    <AssemblyName>Locations.DataAccessLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Locations.Migrations</RootNamespace>
+    <AssemblyName>Locations.Migrations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,12 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -48,23 +46,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\LocationDb.cs" />
-    <Compile Include="Context\EntitySeed.cs" />
+    <Compile Include="Migrations\201503022005050_Initial.cs" />
+    <Compile Include="Migrations\201503022005050_Initial.Designer.cs">
+      <DependentUpon>201503022005050_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.cs" />
+    <Compile Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.Designer.cs">
+      <DependentUpon>201503052013187_AddingLatAndLngDoublesForChurchPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503052037412_RemovingLocationGeographySpatial.cs" />
+    <Compile Include="Migrations\201503052037412_RemovingLocationGeographySpatial.Designer.cs">
+      <DependentUpon>201503052037412_RemovingLocationGeographySpatial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ChurchRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Locations.Core\Locations.Core.csproj">
-      <Project>{29E52CB1-7465-4C6B-9AFC-2A856FB7299D}</Project>
-      <Name>Locations.Core</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201503022005050_Initial.resx">
+      <DependentUpon>201503022005050_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503052013187_AddingLatAndLngDoublesForChurchPosition.resx">
+      <DependentUpon>201503052013187_AddingLatAndLngDoublesForChurchPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503052037412_RemovingLocationGeographySpatial.resx">
+      <DependentUpon>201503052037412_RemovingLocationGeographySpatial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Locations.DataAccessLayer\Locations.DataAccessLayer.csproj">
+      <Project>{04AAF009-07C1-4DA4-8116-F12FCFE15561}</Project>
+      <Name>Locations.DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

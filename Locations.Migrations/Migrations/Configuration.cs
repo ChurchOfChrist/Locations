@@ -1,7 +1,7 @@
 using System.Data.Entity.Migrations;
 using Locations.DataAccessLayer.Context;
 
-namespace Locations.DataAccessLayer.Migrations
+namespace Locations.Migrations.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<LocationDb>
     {

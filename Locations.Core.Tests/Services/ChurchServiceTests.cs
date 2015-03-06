@@ -27,12 +27,13 @@ namespace Locations.Core.Tests.Services
         {
             var church = new ChurchViewModel
             {
-                Lat = 18.473123,
-                Lng = -69.809590,
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
                 Preacher = "Any Preacher",
+                Address = "Somewhere in Neyba"
             };
-            Service.Add(church).ShouldBeFalse();
-            Service.GetInBox(19.299594, 17.789344, -68.785349, -71.227060).Any().ShouldBeTrue();
+            Service.Add(church).ShouldBeTrue();
+            Service.GetInBox(19.9708, -68.8540, 16.9492, -73.7374).Count().ShouldEqual(1);
         }
 
 

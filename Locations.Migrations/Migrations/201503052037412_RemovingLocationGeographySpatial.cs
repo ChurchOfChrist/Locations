@@ -1,8 +1,7 @@
-namespace Locations.DataAccessLayer.Migrations
+using System.Data.Entity.Migrations;
+
+namespace Locations.Migrations.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class RemovingLocationGeographySpatial : DbMigration
     {
         public override void Up()
