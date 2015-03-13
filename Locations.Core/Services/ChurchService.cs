@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Locations.Core.Entities;
+using Locations.Core.Extensions;
 using Locations.Core.IRepositories;
 using Locations.Core.ViewModels;
 
@@ -17,18 +17,18 @@ namespace Locations.Core.Services
         }
         public bool Add(ChurchViewModel church)
         {
-            if (String.IsNullOrEmpty(church.Preacher))
-            {
+            if (church.Contacts.IsNullOrEmpty() || church.WorshipDays.IsNullOrEmpty())
                 return false;
-            }
 
-            _repository.Add(new Church
+            var toadd = new Church
             {
-                Preacher = church.Preacher,
                 Lat = church.Lat,
                 Lng = church.Lng,
                 Address = church.Address,
-            });
+                Contacts = church.Contacts.Select(c => c.ToEntity()).ToList(),
+                WorshipDays = church.WorshipDays.Select(w => w.ToEntity()).ToList(),
+            };
+            _repository.Add(toadd);
             _repository.SaveChanges();
             return true;
         }

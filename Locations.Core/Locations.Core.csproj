@@ -49,13 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Church.cs" />
+    <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\WorshipDay.cs" />
+    <Compile Include="Extensions\Helper.cs" />
     <Compile Include="IRepositories\IChurchRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChurchService.cs" />
     <Compile Include="Services\IChurchService.cs" />
     <Compile Include="ViewModels\ChurchViewModel.cs" />
+    <Compile Include="ViewModels\ContactViewModel.cs" />
+    <Compile Include="ViewModels\WorshipDayViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,21 +1,22 @@
 ﻿using System;
-using Locations.Core.Entities;
+using System.Collections.Generic;
+using Locations.Core.ViewModels;
 
 namespace Locations.DataAccessLayer.Context
 {
     public static class EntitySeed
     {
-        public static Church[] DefaultChurches = {
-            new Church {WorshipDays = "First Church, First City", CreationDate = DateTime.Now, Lat =18.66966526847465, Lng = -69.8675537109375},
-            new Church {WorshipDays = "Second Church, First City",  CreationDate = DateTime.Now, Lat =18.66966526847465, Lng = -69.8675537109375},
-            new Church {WorshipDays = "Third Church, First City",   CreationDate = DateTime.Now, Lat =18.66966526847465, Lng = -69.8675537109375},
-            new Church {WorshipDays = "First Church, Second City",  CreationDate = DateTime.Now},
-            new Church {WorshipDays = "Second Church, Second City",CreationDate = DateTime.Now},
-            new Church {WorshipDays = "Third Church, Second City", CreationDate = DateTime.Now},
-            new Church {WorshipDays = "First Church, Third City", CreationDate = DateTime.Now},
-            new Church {WorshipDays = "Second Church, Third City", CreationDate = DateTime.Now},
-            new Church {WorshipDays = "Third Church, Third City", CreationDate = DateTime.Now}
+        public static readonly List<ContactViewModel> DefaultContacts = new List<ContactViewModel>
+        {
+            new ContactViewModel() {FullName = "AnyContact 1", PhoneNumber = "Any809Number", Email = "Any@email.com"},
+            new ContactViewModel() {FullName = "AnyContact 2", PhoneNumber = "Any829Number", Email = "Any@mail.com"},
         };
 
+        public static readonly List<WorshipDayViewModel> DefaultWorshipDays = new List<WorshipDayViewModel>
+        {
+            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new TimeSpan(9,0,0), End = new TimeSpan(11,0,0), Description = "Culto Principal Primer Servicio"},
+            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new TimeSpan(17,0,0), End = new TimeSpan(19,0,0), Description = "Culto Principal Segundo Servicio"},
+
+        };
     }
 }

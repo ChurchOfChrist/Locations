@@ -1,4 +1,4 @@
-﻿using System.Data.Entity.Spatial;
+﻿using System.Collections.Generic;
 
 namespace Locations.Core.Entities
 {
@@ -9,13 +9,10 @@ namespace Locations.Core.Entities
     /// </summary>
     public class Church : Entity
     {
-        //TODO: Convert this to preachers with phone number
-        public string Preacher { get; set; }
-        //TODO: Convert this into a entity with Day and time span
-        public string WorshipDays { get; set; }
+        public virtual List<WorshipDay> WorshipDays { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
         public string Address { get; set; }
-        
+        public virtual List<Contact> Contacts { get; set; }
     }
 }
