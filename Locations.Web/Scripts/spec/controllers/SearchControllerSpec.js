@@ -1,5 +1,5 @@
 ﻿//Search locations tests
-describe('Search Controller Tests', function () {
+/*describe('Search Controller Tests', function () {
     var $controller, searchCtrl, $scope, searchService;
     beforeEach(module('app'));
     beforeEach(inject(function (_$controller_, _$rootScope_, _SearchService_) {
@@ -18,4 +18,4 @@ describe('Search Controller Tests', function () {
             expect($scope.FindPlaces).toBeDefined();
         });
     });
-});
+});*/

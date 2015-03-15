@@ -1,6 +1,6 @@
 ﻿//Search locations tests
 //We don't need to test google maps calls
-describe('Search Service Tests', function() {
+/*describe('Search Service Tests', function() {
     var searchService;
     beforeEach(module('app'));
     beforeEach(inject(function (_SearchService_) {
@@ -19,4 +19,4 @@ describe('Search Service Tests', function() {
             expect(searchService.GetPlacesByName).toBeDefined();
         });
     });
-});
+});*/

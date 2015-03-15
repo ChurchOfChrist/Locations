@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html ng-app="app">
 <head>
     <meta charset="utf-8" />
@@ -9,8 +12,8 @@
     <meta name="description" content="Direcciones de las Iglesias de Cristo" />
 </head>
 <body>
-<div class="page" ng-view></div>
-@Scripts.Render("~/bundles/jquery")
+    <div class="page" ng-view></div>
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")
     <script src="~/Scripts/lodash.min.js"></script>

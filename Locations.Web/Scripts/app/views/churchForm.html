@@ -89,7 +89,7 @@
         <div class="col-md-12">
             <h4 class="text-success">Comentario</h4>
 
-            <textarea placeholder="Escriba cualquier informacion que sea de ayuda para el visitante." ng-model="Church.Details" class="form-control"></textarea>
+            <textarea placeholder="Escriba cualquier informacion que sea de ayuda para el visitante." ng-model="Church.Comment" class="form-control"></textarea>
   
         </div>
        
@@ -100,12 +100,12 @@
             <button ng-click="save(Church)" class="btn btn-success btn-block">
                 Guardar
             </button>
-            <ul ng-show="pendingForSubmition">
-                <li ng-if="pendingForSubmition">
+            <ul ng-show="Submitted">
+                <li ng-if="!$parent.ChurchMarker.coords">
                     <code>Tienes que dar click en la posicion donde se encuentra la congregacion.</code>
                 </li>
                 <li ng-if="!Church.WorshipDays.length ">
-                    <code>Agrega los dias de culto.</code> 
+                    <code>Agrega los dias de culto.</code>
                 </li>
                 <li ng-if="!Church.Contacts.length">
                     <code>Y los numeros de contacto.</code>
