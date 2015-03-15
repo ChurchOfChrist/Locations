@@ -1,0 +1,31 @@
+﻿<div class="modal-header">
+    Contacto
+</div>
+<div class="modal-body">
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nombre</label>
+            <div class="col-sm-10">
+                <input type="text" name="FullName" class="form-control" ng-model="Contact.FullName"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Telefono</label>
+            <div class="col-sm-10">
+                <input type="text" name="PhoneNumber" class="form-control" ng-model="Contact.PhoneNumber"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" name="Email" class="form-control" ng-model="Contact.Email" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(Contact)">Agregar</button>
+    <button class="btn btn-warning" ng-click="cancel()">Salir</button>
+</div>
+ 

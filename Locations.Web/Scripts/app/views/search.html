@@ -26,52 +26,7 @@
             </ui-gmap-marker>
         </ui-gmap-google-map>
     </div>
-    <div ng-if="displayChurchForm" class="col-md-4">
-        <h3 class="text-success">Agregar congregación</h3>
-        <div class="col-md-12">
-            <h4>
-                <strong>Predicadores</strong>
-                <button ng-click="addPreacher()" class="btn btn-sm btn-info">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </h4>
-        </div>
-        <div class="col-md-12" ng-repeat="preacher in Church.Preachers">
-            <div class="col-md-5">
-                <input type="text" placeholder="Nombre" class="form-control" ng-model="preacher.Name" value="" />
-            </div>
-            <div class="col-md-5">
-                <input type="text" placeholder="Telefono" class="form-control" ng-model="preacher.PhoneNumber" value="" />
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-danger btn-sm" ng-click="removePreacher($index)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-            </div>
-            <hr />
-        </div>
-        <div class="col-md-12">
-            <h4>
-                <strong>
-                    Horario de culto
-                </strong>
-            </h4>
-            <small>En estas lineas te recomendamos poner los horarios de cultos y cualquier otro detalle de relevancia para el visitante.</small>
-        </div>
-        <div class="col-md-12">
-            <textarea ng-model="Church.Details" class="form-control"></textarea>
-        </div>
-        <hr />
-        <div class="col-md-12">
-            <small>
-                Utiliza el zoom para acercar el mapa y da click donde se encuentra la congregación.
-                <br/>
-                Puedes mover la posicion de la Iglesia arrastrando el punto que pusiste.
-            </small>
-            <button ng-click="save(Church)" ng-disabled="!Church.coords" class="btn btn-success btn-sm">
-                Guardar
-            </button>
-        </div>
-    </div>
+    <div ng-show="displayChurchForm" ng-include="'/Scripts/app/views/churchForm.html'" class="col-md-4"></div>
+
 </div>
 

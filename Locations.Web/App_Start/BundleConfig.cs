@@ -26,9 +26,11 @@ namespace Locations.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
-                        "~/Scripts/angular-route.js"
+                        "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
@@ -37,7 +39,10 @@ namespace Locations.Web
                 "~/Scripts/app/configs/routes.js",
                 "~/Scripts/app/services/SearchService.js",
                 "~/Scripts/app/controllers/HomeCtrl.js",
-                "~/Scripts/app/controllers/SearchCtrl.js"
+                "~/Scripts/app/controllers/SearchCtrl.js",
+                "~/Scripts/app/controllers/modals/ContactModalCtrl.js",
+                "~/Scripts/app/controllers/modals/WorshipModalCtrl.js",
+                "~/Scripts/app/controllers/ChurchFormCtrl.js"
                 ));
         }
     }

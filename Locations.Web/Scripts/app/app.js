@@ -1,3 +1,3 @@
 ﻿(function() {
-    angular.module('app', ['ngRoute', 'uiGmapgoogle-maps']);
+    angular.module('app', ['ngRoute', 'uiGmapgoogle-maps', 'ui.bootstrap']);
 })();

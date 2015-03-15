@@ -13,6 +13,7 @@ namespace Locations.Core.Entities
         public double Lat { get; set; }
         public double Lng { get; set; }
         public string Address { get; set; }
+        public string Comment { get; set; }
         public virtual List<Contact> Contacts { get; set; }
     }
 }

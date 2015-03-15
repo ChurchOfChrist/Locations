@@ -1,0 +1,119 @@
+﻿<div ng-controller="ChurchFormCtrl">
+    <h4 class="text-success">
+        Cultos y Actividades congregacionales <button ng-click="addWorship()" class="btn btn-sm btn-info">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Dia</th>
+                <th>Inicio</th>
+                <th>Final</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="worship in Church.WorshipDays">
+                <td>
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" ng-click="Remove($index, Church.WorshipDays)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                    </span>
+                </td>
+                <td>
+                    {{ worship.Day }}
+                </td>
+                <td>
+                    {{ worship.Start | date: 'shortTime' }}
+                </td>
+                <td>
+                    {{ worship.End | date: 'shortTime' }}
+                </td>
+                <td>
+                    {{ worship.Description }}
+                </td>
+            </tr>
+            <tr ng-if="!Church.WorshipDays.length">
+                <td colspan="5" class="warning">
+                    Por favor agregue los dias de actividades periodicas en la congregacion.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 class="text-success">
+        Contactos <button ng-click="AddContact()" class="btn btn-sm btn-info">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in Church.Contacts">
+                <td>
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" ng-click="Remove($index, Church.Contacts)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                    </span>
+                </td>
+                <td>
+                    {{ contact.FullName }}
+                </td>
+                <td>
+                    {{ contact.PhoneNumber}}
+                </td>
+                <td>
+                    {{ contact.Email }}
+                </td>
+            </tr>
+            <tr ng-if="!Church.Contacts.length">
+                <td class="warning" colspan="5">
+                    Por favor agregue algunos contactos.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-success">Comentario</h4>
+
+            <textarea placeholder="Escriba cualquier informacion que sea de ayuda para el visitante." ng-model="Church.Details" class="form-control"></textarea>
+  
+        </div>
+       
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button ng-click="save(Church)" class="btn btn-success btn-block">
+                Guardar
+            </button>
+            <ul ng-show="pendingForSubmition">
+                <li ng-if="pendingForSubmition">
+                    <code>Tienes que dar click en la posicion donde se encuentra la congregacion.</code>
+                </li>
+                <li ng-if="!Church.WorshipDays.length ">
+                    <code>Agrega los dias de culto.</code> 
+                </li>
+                <li ng-if="!Church.Contacts.length">
+                    <code>Y los numeros de contacto.</code>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</div>

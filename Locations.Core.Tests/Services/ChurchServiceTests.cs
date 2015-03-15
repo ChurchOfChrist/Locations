@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Transactions;
 using Locations.Core.Services;
 using Locations.Core.ViewModels;
 using Locations.DataAccessLayer.Context;
@@ -12,16 +13,24 @@ namespace Locations.Core.Tests.Services
     public class ChurchServiceTests
     {
         private readonly Manager _manager;
+        private TransactionScope _tranScope;
         private ChurchService Service { get; set; }
         public ChurchServiceTests()
         {
             _manager = new Manager();
+            var repo = new ChurchRepository(_manager.Db);
+            Service = new ChurchService(repo);
         }
         [SetUp]
         public void Setups()
         {
-            var repo = new ChurchRepository(_manager.Db);
-            Service = new ChurchService(repo);
+            _tranScope = new TransactionScope();
+        }
+
+        [TearDown]
+        public void Dispose()
+        {
+            _tranScope.Dispose();
         }
         #region Add
         [Test]
@@ -100,6 +109,7 @@ namespace Locations.Core.Tests.Services
 
         }
         #endregion
+        #region Get
         [Test]
         public void GetChurchesByBoundingBoxShouldReturnTheChurchesInsideTheBox()
         {
@@ -113,7 +123,6 @@ namespace Locations.Core.Tests.Services
             Service.Add(church).ShouldBeTrue();
             Service.GetInBox(19.9708, -68.8540, 16.9492, -73.7374).Count().ShouldEqual(1);
         }
-
-
+        #endregion
     }
 }

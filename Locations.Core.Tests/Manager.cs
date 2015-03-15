@@ -1,14 +1,15 @@
+using Effort;
 using Locations.DataAccessLayer.Context;
 
 namespace Locations.Core.Tests
 {
     public class Manager
     {
-        public LocationDb Db;
+        public readonly LocationDb Db;
 
         public Manager()
         {
-            var connection = Effort.DbConnectionFactory.CreateTransient();
+            var connection = DbConnectionFactory.CreateTransient();
             Db = new LocationDb(connection);
         }
     }

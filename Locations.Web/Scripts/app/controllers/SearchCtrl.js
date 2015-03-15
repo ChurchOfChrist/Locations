@@ -4,35 +4,20 @@
         .run(['$templateCache', function ($templateCache) {
             $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="form-control" type="text" placeholder="Search">');
         }])
-        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout', '$http',
-            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout, $http) {
-                $scope.addingChurch = false;
+        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout',
+            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
                 var clickEvent = function (themap, eventNam, args) {
                     if ($scope.displayChurchForm) {
-                        $timeout(function () {
-                            $scope.Church.coords = {
+                        $timeout(function () {                            
+                            $scope.ChurchMarker.coords = {
                                 latitude: args[0].latLng.lat(),
                                 longitude: args[0].latLng.lng()
-                            };
-                            var bounds = themap.getBounds();
-                            var ne = bounds.getNorthEast();
-                            var sw = bounds.getSouthWest();
-                            $http.get('/home/PointsInTheBox', {
-                                params: {
-                                    nelng: ne.lng(),
-                                    nelt: ne.lat(),
-                                    swlng: sw.lng(),
-                                    swlt: sw.lat()
-                                }
-                            }).success(function (data) {
-                                $log.log(data);//TODO: Display the markets on the map
-                            });
-                            $scope.Church.options.visible = true;
+                            };                       
+                            $scope.ChurchMarker.options.visible = true;
                         });
                     }
                 }
-                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };
-                var events = {
+                var searchEvents = {
                     places_changed: function (searchBox) {
                         console.log(searchBox);
                         var places = searchBox.getPlaces();
@@ -42,20 +27,19 @@
                         $scope.map.center = { latitude: places[0].geometry.location.lat(), longitude: places[0].geometry.location.lng() };
                     }
                 }
-                $scope.searchbox = { template: 'searchbox.tpl.html', events: events, parentDiv: 'searchDiv' };
+                $scope.addChurchEvent = function () {
+                    $scope.displayChurchForm = !$scope.displayChurchForm;
+                    $scope.ChurchMarker.coords = undefined;
+                };
+
+                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };            
+                $scope.searchbox = { template: 'searchbox.tpl.html', events: searchEvents, parentDiv: 'searchDiv' };
                 uiGmapGoogleMapApi.then(function (maps) {
                     if ($routeParams.address) {
                         $scope.searchText = $routeParams.address;
                     }
                 });
-
-                $scope.addChurchEvent = function () {
-                    $scope.displayChurchForm = !$scope.displayChurchForm;
-                    $scope.Church.Preachers = [{ Name: '', PhoneNumber: '' }];
-                    $scope.Church.Details = '';
-                    $scope.Church.coords = undefined;
-                };
-                $scope.Church = {
+                $scope.ChurchMarker = {
                     id: 0,
                     options: {
                         draggable: true,
@@ -63,36 +47,25 @@
                     },
                     events: {
                         dragend: function (marker, eventName, args) {
-                            $scope.Church.options = {
-                                draggable: true,
-                                labelContent: "lat: " + $scope.Church.coords.latitude + ' ' + 'lon: ' + $scope.Church.coords.longitude,
-                                labelAnchor: "100 0",
-                                labelClass: "marker-labels"
-                            };
+                            //Maybe display a message advertising to the user about the new position of the church
                         }
                     }
                 };
-                $scope.addPreacher = function () {
-                    $scope.Church.Preachers.push({});
-                    console.log($scope.Church.Preachers);
-                }
-                $scope.removePreacher = function (index) {
-                    $scope.Church.Preachers.splice(index, 1);
-                }
-                $scope.save = function (church) {
-                    console.log(church);
-                    $http.get('/home/addpoint', {
-                        params: {
-                            address: $scope.Church.Details,
-                            lat: $scope.Church.coords.latitude,
-                            lng: $scope.Church.coords.longitude,
-                            preacher: 'Yomismo',
-                            days: 'Tolodia'
-                        }
-                    }).success(function (data) {
-                        $log.log(data);//TODOD:Save details
-                    });
-                }
+
+                //TODO: Load Church logic
+                /*var bounds = themap.getBounds();
+                var ne = bounds.getNorthEast();
+                var sw = bounds.getSouthWest();
+                $http.get('/home/PointsInTheBox', {
+                    params: {
+                        nelng: ne.lng(),
+                        nelt: ne.lat(),
+                        swlng: sw.lng(),
+                        swlt: sw.lat()
+                    }
+                }).success(function (data) {
+                    $log.log(data);//TODO: Display the markets on the map
+                });*/
             }
         ]);
 })();
