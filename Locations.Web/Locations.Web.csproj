@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\ChurchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JasmineController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -222,7 +223,7 @@
     <Content Include="Scripts\app\controllers\SearchCtrl.js" />
     <Content Include="Scripts\app\configs\map.js" />
     <Content Include="Scripts\app\configs\routes.js" />
-    <Content Include="Scripts\app\services\SearchService.js" />
+    <Content Include="Scripts\app\services\ChurchService.js" />
     <Content Include="Scripts\app\templates\newchurch.html" />
     <Content Include="Scripts\app\views\modals\contact.html" />
     <Content Include="Scripts\app\views\modals\worship.html" />

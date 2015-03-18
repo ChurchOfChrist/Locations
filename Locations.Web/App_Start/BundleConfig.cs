@@ -37,7 +37,7 @@ namespace Locations.Web
                 "~/Scripts/app/app.js",
                 "~/Scripts/app/configs/map.js",
                 "~/Scripts/app/configs/routes.js",
-                "~/Scripts/app/services/SearchService.js",
+                "~/Scripts/app/services/ChurchService.js",
                 "~/Scripts/app/controllers/HomeCtrl.js",
                 "~/Scripts/app/controllers/SearchCtrl.js",
                 "~/Scripts/app/controllers/modals/ContactModalCtrl.js",

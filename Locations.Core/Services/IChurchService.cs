@@ -6,7 +6,7 @@ namespace Locations.Core.Services
     public interface IChurchService
     {
         bool Add(ChurchViewModel church);
-        List<ChurchViewModel> GetInBox(double nelt, double nelng, double swlt, double swlng);
+        List<ChurchViewModel> GetInBox(CoordinatesViewModel coords);
         List<ChurchViewModel> GetAll();
     }
 }

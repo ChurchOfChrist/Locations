@@ -60,6 +60,7 @@
     <Compile Include="Services\IChurchService.cs" />
     <Compile Include="ViewModels\ChurchViewModel.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
+    <Compile Include="ViewModels\CoordinatesViewModel.cs" />
     <Compile Include="ViewModels\WorshipDayViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

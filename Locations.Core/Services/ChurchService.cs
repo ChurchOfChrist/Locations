@@ -33,9 +33,9 @@ namespace Locations.Core.Services
             return true;
         }
 
-        public List<ChurchViewModel> GetInBox(double nelt, double nelng, double swlt, double swlng)
+        public List<ChurchViewModel> GetInBox(CoordinatesViewModel coords)
         {
-            return _repository.GetInBox(nelt, nelng, swlt, swlng).Select(c => new ChurchViewModel(c)).ToList();
+            return _repository.GetInBox(coords.Nelt, coords.Nelng, coords.Swlt, coords.Swlng).Select(c => new ChurchViewModel(c)).ToList();
         }
 
         public List<ChurchViewModel> GetAll()

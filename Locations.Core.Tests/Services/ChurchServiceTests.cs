@@ -120,8 +120,9 @@ namespace Locations.Core.Tests.Services
                 Contacts = EntitySeed.DefaultContacts,
                 WorshipDays = EntitySeed.DefaultWorshipDays,
             };
+            var coords = new CoordinatesViewModel(19.9708, -68.8540, 16.9492, -73.7374);
             Service.Add(church).ShouldBeTrue();
-            Service.GetInBox(19.9708, -68.8540, 16.9492, -73.7374).Count().ShouldEqual(1);
+            Service.GetInBox(coords).Count().ShouldEqual(1);
         }
         #endregion
     }

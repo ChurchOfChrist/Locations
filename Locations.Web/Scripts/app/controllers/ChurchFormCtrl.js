@@ -1,8 +1,8 @@
 ﻿(function () {
     'use strict';
     angular.module('app')
-        .controller('ChurchFormCtrl', ['$scope', '$log', '$timeout', '$http', '$modal',
-            function ($scope, $log, $timeout, $http, $modal) {
+        .controller('ChurchFormCtrl', ['$scope', '$log', '$timeout', '$http', '$modal','ChurchService',
+            function ($scope, $log, $timeout, $http, $modal, ChurchService) {
                 $scope.Remove = function (index, list) {
                     list.splice(index, 1);
                 }
@@ -11,20 +11,22 @@
                         $scope.Submitted = true;
                         return;
                     }
-                    church.cords = $scope.$parent.ChurchMarker.coords;
-                    $log.log(church);
-                    alert('Listo para agregar check ur console');
-                    /* $http.get('/home/addpoint', {
-                         params: {
-                             address: $scope.Church.Details,
-                             lat: $scope.Church.coords.latitude,
-                             lng: $scope.Church.coords.longitude,
-                             preacher: 'Yomismo',
-                             days: 'Tolodia'
-                         }
-                     }).success(function (data) {
-                         $log.log(data); //TODOD:Save details
-                     });*/
+                    var marker = $scope.$parent.ChurchMarker;
+                    church.Lat = marker.coords.latitude;
+                    church.Lng = marker.coords.longitude;
+                    church.Address = marker.Address;
+                    ChurchService.Save(church).success(function(data) {
+                        if (data) {
+                            $log.log('Saved');
+                        } else {
+                            $log.log('Error saving');
+                        }
+
+                    }).error(function(result) {
+                        $log.log('Invalid input');
+                        $log.log(result);
+
+                    });
                 };
                 var modal = function (templateUrl, ctrl, size, items) {
                     return $modal.open({

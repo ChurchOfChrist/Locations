@@ -4,15 +4,15 @@
         .run(['$templateCache', function ($templateCache) {
             $templateCache.put('searchbox.tpl.html', '<input id="pac-input" ng-model="$parent.searchText" class="form-control" type="text" placeholder="Search">');
         }])
-        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout',
-            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout) {
+        .controller('SearchCtrl', ['$scope', 'uiGmapGoogleMapApi', '$routeParams', '$log', '$timeout', 'ChurchService',
+            function ($scope, uiGmapGoogleMapApi, $routeParams, $log, $timeout, ChurchService) {
                 var clickEvent = function (themap, eventNam, args) {
                     if ($scope.displayChurchForm) {
-                        $timeout(function () {                            
+                        $timeout(function () {
                             $scope.ChurchMarker.coords = {
                                 latitude: args[0].latLng.lat(),
                                 longitude: args[0].latLng.lng()
-                            };                       
+                            };
                             $scope.ChurchMarker.options.visible = true;
                         });
                     }
@@ -32,7 +32,7 @@
                     $scope.ChurchMarker.coords = undefined;
                 };
 
-                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };            
+                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };
                 $scope.searchbox = { template: 'searchbox.tpl.html', events: searchEvents, parentDiv: 'searchDiv' };
                 uiGmapGoogleMapApi.then(function (maps) {
                     if ($routeParams.address) {
