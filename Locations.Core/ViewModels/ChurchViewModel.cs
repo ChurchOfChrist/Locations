@@ -13,7 +13,6 @@ namespace Locations.Core.ViewModels
             Address = entity.Address;
             Lng = entity.Lng;
             Lat = entity.Lat;
-            Comment = entity.Comment;
         }
 
         public ChurchViewModel()
@@ -21,12 +20,12 @@ namespace Locations.Core.ViewModels
         }
 
         #region properties
+        public string Preacher { get; set; }
         public List<WorshipDayViewModel> WorshipDays { get; set; }
         public string Address { get; set; }
         public double Lng { get; set; }
         public double Lat { get; set; }
         public List<ContactViewModel> Contacts { get; set; }
-        public string Comment { get; set; }
 
         #endregion
     }
