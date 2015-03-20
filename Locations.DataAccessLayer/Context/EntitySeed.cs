@@ -14,8 +14,8 @@ namespace Locations.DataAccessLayer.Context
 
         public static readonly List<WorshipDayViewModel> DefaultWorshipDays = new List<WorshipDayViewModel>
         {
-            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new TimeSpan(9,0,0), End = new TimeSpan(11,0,0), Description = "Culto Principal Primer Servicio"},
-            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new TimeSpan(17,0,0), End = new TimeSpan(19,0,0), Description = "Culto Principal Segundo Servicio"},
+            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new DateTime(2015,01,11,9,0,0), End = new DateTime(2015,01,11,11,0,0), Description = "Culto Principal Primer Servicio"},
+            new WorshipDayViewModel() { Day= DayOfWeek.Sunday, Start = new DateTime(2015,01,11,17,0,0), End = new DateTime(2015,01,11,19,0,0), Description = "Culto Principal Segundo Servicio"},
 
         };
     }

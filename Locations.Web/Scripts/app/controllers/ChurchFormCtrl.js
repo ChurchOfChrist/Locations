@@ -21,11 +21,9 @@
                         } else {
                             $log.log('Error saving');
                         }
-
                     }).error(function(result) {
                         $log.log('Invalid input');
                         $log.log(result);
-
                     });
                 };
                 var modal = function (templateUrl, ctrl, size, items) {

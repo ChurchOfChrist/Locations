@@ -20,7 +20,6 @@ namespace Locations.Core.ViewModels
         }
 
         #region properties
-        public string Preacher { get; set; }
         public List<WorshipDayViewModel> WorshipDays { get; set; }
         public string Address { get; set; }
         public double Lng { get; set; }
