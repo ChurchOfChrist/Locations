@@ -7,24 +7,28 @@ namespace Locations.Web.Controllers.api
 {
     public class ChurchController : ApiController
     {
-        private IChurchService Service { get; set; }
+        private readonly IChurchService _service;
         public ChurchController(IChurchService churchService)
         {
-            Service = churchService;
+            _service = churchService;
         }
 
         public List<ChurchViewModel> Get()
         {
-            return Service.GetAll();
+            return _service.GetAll();
         }
+
         /// <summary>
         /// This method allow to get all the locations inside a box
         /// </summary>
-        /// <param name="coords"></param>
+        /// <param name="nelt"></param>
+        /// <param name="nelng"></param>
+        /// <param name="swlt"></param>
+        /// <param name="swlng"></param>
         /// <returns></returns>
-        public List<ChurchViewModel> Get(CoordinatesViewModel coords)
+        public List<ChurchViewModel> Get(double nelt, double nelng, double swlt, double swlng)
         {
-            return Service.GetInBox(coords);
+            return _service.GetInBox(new CoordinatesViewModel(nelt,nelng,swlt,swlng));
         }
         /// <summary>
         /// Method for adding a church
@@ -35,7 +39,7 @@ namespace Locations.Web.Controllers.api
         {
             if (ModelState.IsValid)
             {
-                var result = Service.Add(church);
+                var result = _service.Add(church);
                 return Ok(result);
             }
             return BadRequest(ModelState);
