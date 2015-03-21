@@ -19,7 +19,7 @@ namespace Locations.Web.App_Start
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -28,7 +28,7 @@ namespace Locations.Web.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Locations.Web.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
         
         /// <summary>
@@ -67,9 +67,9 @@ namespace Locations.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<LocationDb>();
-            kernel.Bind<IChurchService>().To<ChurchService>();
+            kernel.Bind<DbContext>().ToConstructor(c => new LocationDb());
             kernel.Bind<IChurchRepository>().To<ChurchRepository>();
+            kernel.Bind<IChurchService>().To<ChurchService>();
         }        
     }
 }
