@@ -1,0 +1,32 @@
+﻿<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="input-group">
+                    <div id="searchDiv"></div> <span class="input-group-btn"><button class="btn">Buscar</button></span>
+                </div>
+            </form>
+            <button class="btn btn-sm btn-primary navbar-btn navbar-right" ng-click="addChurchEvent()">Agregar congregación</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div ng-class="displayChurchForm ? 'col-md-8' : 'col-md-12'">
+        <ui-gmap-google-map center="map.center" events="map.events" zoom="map.zoom">
+            <ui-gmap-search-box parentdiv="searchbox.parentDiv" template="searchbox.template" events="searchbox.events">
+            </ui-gmap-search-box>
+            <ui-gmap-marker coords="ChurchMarker.coords" options="ChurchMarker.options" events="ChurchMarker.events" idkey="ChurchMarker.id">
+            </ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
+    <div ng-show="displayChurchForm" ng-include="'/Scripts/app/views/churchForm.html'" class="col-md-4"></div>
+
+</div>
+

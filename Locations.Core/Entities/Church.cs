@@ -1,4 +1,6 @@
-﻿namespace Locations.Core.Entities
+﻿using System.Collections.Generic;
+
+namespace Locations.Core.Entities
 {
     /// <summary>
     /// This represents the properties of a church
@@ -7,14 +9,11 @@
     /// </summary>
     public class Church : Entity
     {
-        public int CityId { get; set; }
-        public virtual City City { get; set; }
-        public string Sector { get; set; }
-        public string Preacher { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Description { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        
+        public virtual List<WorshipDay> WorshipDays { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+        public string Address { get; set; }
+        public string Comment { get; set; }
+        public virtual List<Contact> Contacts { get; set; }
     }
 }

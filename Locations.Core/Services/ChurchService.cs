@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Locations.Core.Entities;
+using Locations.Core.Extensions;
 using Locations.Core.IRepositories;
 using Locations.Core.ViewModels;
 
@@ -15,43 +15,32 @@ namespace Locations.Core.Services
         {
             _repository = repository;
         }
-
-        public List<ChurchViewModel> GetByCountry(int countryId)
-        {
-            return _repository.GetByCountry(countryId).Select(c => new ChurchViewModel(c)).ToList();
-        }
-
-        public List<ChurchViewModel> GetByCity(int cityId)
-        {
-            return _repository.GetByCity(cityId).Select(c => new ChurchViewModel(c)).ToList();
-        }
-
-        public List<ChurchViewModel> GetByCityAndSector(int cityId, string sectorName)
-        {
-            return _repository.GetByCityAndSector(cityId, sectorName).Select(c => new ChurchViewModel(c)).ToList();
-        }
-
         public bool Add(ChurchViewModel church)
         {
-            if (String.IsNullOrEmpty(church.Sector) || 
-                church.CityId ==0 || String.IsNullOrEmpty(church.Preacher) 
-                || String.IsNullOrEmpty(church.PhoneNumber))
-            {
+            if (church.Contacts.IsNullOrEmpty() || church.WorshipDays.IsNullOrEmpty())
                 return false;
-            }
 
-            _repository.Add(new Church
+            var toadd = new Church
             {
-                CityId = church.CityId,
-                Description = church.Description,
-                Latitude = church.Latitude,
-                Longitude = church.Longitude,
-                Preacher = church.Preacher,
-                PhoneNumber = church.PhoneNumber,
-                Sector = church.Sector
-            });
+                Lat = church.Lat,
+                Lng = church.Lng,
+                Address = church.Address,
+                Contacts = church.Contacts.Select(c => c.ToEntity()).ToList(),
+                WorshipDays = church.WorshipDays.Select(w => w.ToEntity()).ToList(),
+            };
+            _repository.Add(toadd);
             _repository.SaveChanges();
             return true;
+        }
+
+        public List<ChurchViewModel> GetInBox(CoordinatesViewModel coords)
+        {
+            return _repository.GetInBox(coords.Nelt, coords.Nelng, coords.Swlt, coords.Swlng).Select(c => new ChurchViewModel(c)).ToList();
+        }
+
+        public List<ChurchViewModel> GetAll()
+        {
+            return _repository.All().Select(c => new ChurchViewModel(c)).ToList();
         }
     }
 }

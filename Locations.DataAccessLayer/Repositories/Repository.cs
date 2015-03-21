@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +7,7 @@ using Locations.Core.IRepositories;
 
 namespace Locations.DataAccessLayer.Repositories
 {
-    public class Repository<T> : IRepository<T> ,IEnumerable<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected DbContext Context;
         protected DbSet<T> EntitySet;
@@ -44,14 +43,5 @@ namespace Locations.DataAccessLayer.Repositories
             Context.SaveChanges();
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return EntitySet.AsEnumerable().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
 }

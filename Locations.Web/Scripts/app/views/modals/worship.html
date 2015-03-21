@@ -1,0 +1,55 @@
+﻿<div class="modal-header">
+    Actividad Congregacional
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="control-label">
+                <strong>Dia</strong> 
+            </div>
+            <div>
+                <select ng-model="Worship.Day" class="form-control">
+                    <option value="Sunday">Domingo</option>
+                    <option value="Monday">Lunes</option>
+                    <option value="Tuesday">Martes</option>
+                    <option value="Wednesday">Miercoles</option>
+                    <option value="Thursday">Jueves</option>
+                    <option value="Friday">Viernes</option>
+                    <option value="Saturday">Sabado</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="control-label">
+                <strong>Descripcion</strong>
+            </div>
+            <div>
+                <input type="text" placeholder="Descripcion" class="form-control" ng-model="Worship.Description" value="" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="control-label">
+                <strong>Inicio</strong>
+            </div>
+            <div>
+                <timepicker ng-model="Worship.Start"></timepicker>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="control-label">
+                <strong>Final</strong> 
+            </div>
+            <div>
+                <timepicker ng-model="Worship.End"></timepicker>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(Worship)">Agregar</button>
+    <button class="btn btn-warning" ng-click="cancel()">Salir</button>
+</div>
+

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Locations.Core.IRepositories;
+using System.Transactions;
 using Locations.Core.Services;
-using Locations.Core.Tests.Setups;
 using Locations.Core.ViewModels;
-using NSubstitute;
+using Locations.DataAccessLayer.Context;
+using Locations.DataAccessLayer.Repositories;
 using NUnit.Framework;
 using Should;
 
@@ -12,155 +12,118 @@ namespace Locations.Core.Tests.Services
     [TestFixture]
     public class ChurchServiceTests
     {
-        private IChurchRepository Repository { get; set; }
+        private readonly Manager _manager;
+        private TransactionScope _tranScope;
         private ChurchService Service { get; set; }
+        public ChurchServiceTests()
+        {
+            _manager = new Manager();
+            var repo = new ChurchRepository(_manager.Db);
+            Service = new ChurchService(repo);
+        }
         [SetUp]
         public void Setups()
         {
-            Repository = Substitute.For<IChurchRepository>();
-            Repository.DefaultList();
-            Service = new ChurchService(Repository);
+            _tranScope = new TransactionScope();
         }
 
-        #region GetByCountry
-        [Test]
-        public void GetByCountryShouldReturnAListWhenChurchesBelongsToThatCountry()
+        [TearDown]
+        public void Dispose()
         {
-            const int countryId = 1;
-            Service.GetByCountry(countryId).Any().ShouldBeTrue();
+            _tranScope.Dispose();
         }
+        #region Add
         [Test]
-        public void GetByCountryShouldReturnNothingWhenChurchesBelongsToThatCountry()
-        {
-            const int countryId = 5;
-            Service.GetByCountry(countryId).Any().ShouldBeFalse();
-        }
-        [Test]
-        public void GetByCountryShouldReturnAListWithOnlyChurchesOfThatCountry()
-        {
-            const int countryId = 1;
-            Service.GetByCountry(countryId).All(c => c.City.CountryId == countryId).ShouldBeTrue();
-        }
-        #endregion
-
-        #region GetByCity
-        [Test]
-        public void GetByCityShouldReturnAListWhenChurchesBelongsToThatCity()
-        {
-            const int cityId = 1;
-            var result = 
-            Service.GetByCity(cityId);
-            result.Any().ShouldBeTrue();
-        }
-        [Test]
-        public void GetByCityShouldReturnNothingWhenChurchesBelongsToItCity()
-        {
-            const int cityId = 0;
-            Service.GetByCity(cityId).Any().ShouldBeFalse();
-        }
-        [Test]
-        public void GetByCityShouldReturnAListWithOnlyChurchesOfThatCity()
-        {
-            const int cityId = 1;
-            Service.GetByCity(cityId).ToList().Any(c => c.CityId != cityId).ShouldBeFalse();
-        }
-        #endregion
-
-        #region GetByCityAndSector
-        [Test]
-        public void GetByCityAndSectorShouldReturnAnEmptyListIfItDoesntHaveAnyChurchMatches()
-        {
-            const int cityId = 1;
-            const string sectorName = "Los Frailes";
-            Service.GetByCityAndSector(cityId, sectorName).ShouldBeEmpty();
-        }
-        [Test]
-        public void GetByCityAndSectorShouldReturnListIfItHaveAnyChurchMatches()
-        {
-            const int cityId = 1;
-            const string sectorName = "Existing Sector";
-            Service.GetByCityAndSector(cityId, sectorName).ShouldNotBeEmpty();
-        }
-        #endregion
-
-        #region Add new church
-
-        [Test]
-        public void ChurchShouldNotBeAddedIfTheSectorIsNullOrEmpty()
+        public void AddChurchShouldNotSaveTheChurchAndReturnFalseIfTheModelDoesnotContainContacts()
         {
             var church = new ChurchViewModel
             {
-                CityId = 1,
-                Description = "Any Description",
-                Latitude = 18.473123M,
-                Longitude = -69.809590M,
-                Preacher = "Any Preacher",
-                PhoneNumber = "809 - Any number"
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
+                Address = "Someplace",
             };
             Service.Add(church).ShouldBeFalse();
-        }
-        [Test]
-        public void ChurchShouldNotBeAddedIfTheCityDoesNotExist()
-        {
-            var church = new ChurchViewModel
-            {
-                CityId = 0,
-                Description = "Any Description",
-                Latitude = 18.473123M,
-                Longitude = -69.809590M,
-                Preacher = "Any Preacher",
-                PhoneNumber = "809 - Any number",
-                Sector = "Any sector"
-            };
-            Service.Add(church).ShouldBeFalse();
-        }
-        [Test]
-        public void ChurchShouldNotBeAddedIfPreacherIsNullOrEmpty()
-        {
-            var church = new ChurchViewModel
-            {
-                CityId = 1,
-                Description = "Any Description",
-                Latitude = 18.473123M,
-                Longitude = -69.809590M,
-                PhoneNumber = "809 - Any number",
-                Sector = "Any sector"
-            };
-            Service.Add(church).ShouldBeFalse();
-        }
-        [Test]
-        public void ChurchShouldNotBeAddedIfPhoneNumberIsNullOrEmpty()
-        {
-            var church = new ChurchViewModel
-            {
-                CityId = 1,
-                Description = "Any Description",
-                Latitude = 18.473123M,
-                Longitude = -69.809590M,
-                Preacher = "Any Preacher",
-                Sector = "Any sector"
-            };
-            Service.Add(church).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Address == church.Address).ShouldBeFalse();
         }
 
+
         [Test]
-        public void ChurchShouldBeAddedContainsAsectorPreacherAndPhoneNumber()
+        public void AddChurchShouldAddTheContactsCorrectlyIfItContainsContacts()
         {
+            var contactList = EntitySeed.DefaultContacts.ToList();
             var church = new ChurchViewModel
             {
-                CityId = 1,
-                Description = "Any Description",
-                Latitude = 18.473123M,
-                Longitude = -69.809590M,
-                Preacher = "Any Preacher",
-                PhoneNumber = "809 - Any number",
-                Sector = "Any sector"
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
+                Contacts = contactList,
+                WorshipDays = EntitySeed.DefaultWorshipDays,
             };
             Service.Add(church).ShouldBeTrue();
+            var added = _manager.Db.Churches.FirstOrDefault(c =>
+                c.Lat == church.Lat &&
+                c.Lng == church.Lng &&
+                c.Address == church.Address);
+
+            added.ShouldNotBeNull();
+            added.Contacts.Any().ShouldBeTrue();
+            contactList.ForEach(c => added.Contacts.Any(a => a.FullName == c.FullName && a.PhoneNumber == c.PhoneNumber
+                && a.Email == c.Email).ShouldBeTrue());
+
         }
-        
+        [Test]
+        public void AddChurchShouldNotSaveTheChurchAndReturnFalseIfItDoesNotContainWorshipDays()
+        {
+            var church = new ChurchViewModel
+            {
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
+                Address = "Someplace",
+                Contacts = EntitySeed.DefaultContacts.ToList()
+            };
+            Service.Add(church).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Address == church.Address).ShouldBeFalse();
+        }
 
+
+        [Test]
+        public void AddChurchShouldAddChurchCorrectlyIfItContainsWorshipDays()
+        {
+            var worshipDays = EntitySeed.DefaultWorshipDays;
+            var church = new ChurchViewModel
+            {
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
+                Contacts = EntitySeed.DefaultContacts.ToList(),
+                WorshipDays = worshipDays
+            };
+            Service.Add(church).ShouldBeTrue();
+            var added = _manager.Db.Churches.FirstOrDefault(c =>
+                c.Lat == church.Lat &&
+                c.Lng == church.Lng &&
+                c.Address == church.Address);
+
+            added.ShouldNotBeNull();
+            added.Contacts.Any().ShouldBeTrue();
+            worshipDays.ForEach(c => added.WorshipDays.Any(a => a.Day == c.Day && a.Description == c.Description
+                && a.Start == c.Start && a.End == c.End).ShouldBeTrue());
+
+        }
         #endregion
-
+        #region Get
+        [Test]
+        public void GetChurchesByBoundingBoxShouldReturnTheChurchesInsideTheBox()
+        {
+            var church = new ChurchViewModel
+            {
+                Lat = 18.765913990627432,
+                Lng = -69.6533203125,
+                Contacts = EntitySeed.DefaultContacts,
+                WorshipDays = EntitySeed.DefaultWorshipDays,
+            };
+            var coords = new CoordinatesViewModel(19.9708, -68.8540, 16.9492, -73.7374);
+            Service.Add(church).ShouldBeTrue();
+            Service.GetInBox(coords).Count().ShouldEqual(1);
+        }
+        #endregion
     }
 }

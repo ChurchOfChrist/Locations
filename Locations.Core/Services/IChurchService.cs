@@ -5,8 +5,8 @@ namespace Locations.Core.Services
 {
     public interface IChurchService
     {
-        List<ChurchViewModel> GetByCountry(int countryId);
-        List<ChurchViewModel> GetByCity(int cityId);
-        List<ChurchViewModel> GetByCityAndSector(int cityId, string sectorName);
+        bool Add(ChurchViewModel church);
+        List<ChurchViewModel> GetInBox(CoordinatesViewModel coords);
+        List<ChurchViewModel> GetAll();
     }
 }
