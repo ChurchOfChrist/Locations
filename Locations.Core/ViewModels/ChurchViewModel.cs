@@ -10,9 +10,9 @@ namespace Locations.Core.ViewModels
         {
             Contacts = entity.Contacts.Select(c => new ContactViewModel(c)).ToList();
             WorshipDays = entity.WorshipDays.Select(w => new WorshipDayViewModel(w)).ToList();
-            Address = entity.Address;
             Lng = entity.Lng;
             Lat = entity.Lat;
+            Comment = entity.Comment;
         }
 
         public ChurchViewModel()
@@ -21,11 +21,10 @@ namespace Locations.Core.ViewModels
 
         #region properties
         public List<WorshipDayViewModel> WorshipDays { get; set; }
-        public string Address { get; set; }
         public double Lng { get; set; }
         public double Lat { get; set; }
         public List<ContactViewModel> Contacts { get; set; }
-
+        public string Comment { get; set; }
         #endregion
     }
 }

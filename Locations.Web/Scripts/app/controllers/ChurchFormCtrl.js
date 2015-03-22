@@ -14,7 +14,6 @@
                     var marker = $scope.$parent.ChurchMarker;
                     church.Lat = marker.coords.latitude;
                     church.Lng = marker.coords.longitude;
-                    church.Address = marker.Address;
                     ChurchService.Save(church).success(function(data) {
                         if (data) {
                             $log.log('Saved');

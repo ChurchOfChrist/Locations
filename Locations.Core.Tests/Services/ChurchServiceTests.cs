@@ -40,10 +40,9 @@ namespace Locations.Core.Tests.Services
             {
                 Lat = 18.765913990627432,
                 Lng = -69.6533203125,
-                Address = "Someplace",
             };
             Service.Add(church).ShouldBeFalse();
-            _manager.Db.Churches.Any(c => c.Address == church.Address).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Lat == church.Lat && c.Lng == church.Lng).ShouldBeFalse();
         }
 
 
@@ -61,8 +60,7 @@ namespace Locations.Core.Tests.Services
             Service.Add(church).ShouldBeTrue();
             var added = _manager.Db.Churches.FirstOrDefault(c =>
                 c.Lat == church.Lat &&
-                c.Lng == church.Lng &&
-                c.Address == church.Address);
+                c.Lng == church.Lng);
 
             added.ShouldNotBeNull();
             added.Contacts.Any().ShouldBeTrue();
@@ -77,11 +75,10 @@ namespace Locations.Core.Tests.Services
             {
                 Lat = 18.765913990627432,
                 Lng = -69.6533203125,
-                Address = "Someplace",
                 Contacts = EntitySeed.DefaultContacts.ToList()
             };
             Service.Add(church).ShouldBeFalse();
-            _manager.Db.Churches.Any(c => c.Address == church.Address).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Lat == church.Lat && c.Lng == church.Lng).ShouldBeFalse();
         }
 
 
@@ -99,8 +96,7 @@ namespace Locations.Core.Tests.Services
             Service.Add(church).ShouldBeTrue();
             var added = _manager.Db.Churches.FirstOrDefault(c =>
                 c.Lat == church.Lat &&
-                c.Lng == church.Lng &&
-                c.Address == church.Address);
+                c.Lng == church.Lng);
 
             added.ShouldNotBeNull();
             added.Contacts.Any().ShouldBeTrue();
