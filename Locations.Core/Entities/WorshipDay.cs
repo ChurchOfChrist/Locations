@@ -8,6 +8,8 @@ namespace Locations.Core.Entities
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string Description { get; set; }
+        public virtual Church Church { get; set; }
+        public int ChurchId { get; set; }
 
     }
 }

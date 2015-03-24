@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201503210852226_ChangingTiemSpanToDateTimeonChurch.Designer.cs">
       <DependentUpon>201503210852226_ChangingTiemSpanToDateTimeonChurch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503212332015_AddingNavigationalsForContactAndWDay.cs" />
+    <Compile Include="Migrations\201503212332015_AddingNavigationalsForContactAndWDay.Designer.cs">
+      <DependentUpon>201503212332015_AddingNavigationalsForContactAndWDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503220001500_RemovingAddressPropertyFromChurch.cs" />
+    <Compile Include="Migrations\201503220001500_RemovingAddressPropertyFromChurch.Designer.cs">
+      <DependentUpon>201503220001500_RemovingAddressPropertyFromChurch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +85,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503210852226_ChangingTiemSpanToDateTimeonChurch.resx">
       <DependentUpon>201503210852226_ChangingTiemSpanToDateTimeonChurch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503212332015_AddingNavigationalsForContactAndWDay.resx">
+      <DependentUpon>201503212332015_AddingNavigationalsForContactAndWDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503220001500_RemovingAddressPropertyFromChurch.resx">
+      <DependentUpon>201503220001500_RemovingAddressPropertyFromChurch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

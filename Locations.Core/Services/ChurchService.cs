@@ -22,11 +22,11 @@ namespace Locations.Core.Services
 
             var toadd = new Church
             {
-                Lat = church.Lat,
-                Lng = church.Lng,
-                Address = church.Address,
+                Lat = church.Latitude,
+                Lng = church.Longitude,
                 Contacts = church.Contacts.Select(c => c.ToEntity()).ToList(),
                 WorshipDays = church.WorshipDays.Select(w => w.ToEntity()).ToList(),
+                Comment = church.Comment
             };
             _repository.Add(toadd);
             _repository.SaveChanges();
@@ -40,7 +40,7 @@ namespace Locations.Core.Services
 
         public List<ChurchViewModel> GetAll()
         {
-            return _repository.All().Select(c => new ChurchViewModel(c)).ToList();
+            return _repository.All().ToList().Select(c => new ChurchViewModel(c)).ToList();
         }
     }
 }
