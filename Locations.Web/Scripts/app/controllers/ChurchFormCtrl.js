@@ -1,38 +1,37 @@
 ﻿(function () {
     'use strict';
     angular.module('app')
-        .controller('ChurchFormCtrl', ['$scope', '$log', '$timeout', '$http', '$modal','ChurchService',
-            function ($scope, $log, $timeout, $http, $modal, ChurchService) {
-                $scope.Remove = function (index, list) {
+        .controller('ChurchFormCtrl', ['$scope', '$modal','ChurchService',
+            function ($scope, $modal, ChurchService) {
+                $scope.Remove = function(index, list) {
                     list.splice(index, 1);
-                }
+                };
                 $scope.save = function (church) {
                     if (!$scope.$parent.ChurchMarker.coords || !church.Contacts.length || !church.WorshipDays.length) {
                         $scope.Submitted = true;
                         return;
                     }
                     var marker = $scope.$parent.ChurchMarker;
-                    church.Lat = marker.coords.latitude;
-                    church.Lng = marker.coords.longitude;
+                    church.Latitude = marker.coords.latitude;
+                    church.Longitude = marker.coords.longitude;
                     ChurchService.Save(church).success(function(data) {
                         if (data) {
-                            $log.log('Saved');
+                            location.reload();
                         } else {
-                            $log.log('Error saving');
+                            alert(data);
                         }
                     }).error(function(result) {
-                        $log.log('Invalid input');
-                        $log.log(result);
+                        alert(result);
                     });
                 };
-                var modal = function (templateUrl, ctrl, size, items) {
+                var modal = function(templateUrl, ctrl, size, items) {
                     return $modal.open({
                         templateUrl: templateUrl,
                         controller: ctrl,
                         size: size | 'sm',
                         resolve: items
                     });
-                }
+                };
                 $scope.addWorship = function () {
                     modal('/Scripts/app/views/modals/worship.html', 'WorshipModalCtrl').result.then(function (wDay) {
                         $scope.Church.WorshipDays.push(wDay);
@@ -43,8 +42,6 @@
                         $scope.Church.Contacts.push(contact);
                     });
                 };
-
-
                 $scope.Church = {
                     Contacts: [],
                     WorshipDays: []

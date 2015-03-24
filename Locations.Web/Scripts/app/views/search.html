@@ -24,6 +24,8 @@
             </ui-gmap-search-box>
             <ui-gmap-marker coords="ChurchMarker.coords" options="ChurchMarker.options" events="ChurchMarker.events" idkey="ChurchMarker.id">
             </ui-gmap-marker>
+            <ui-gmap-markers models="Churches.Markers" idKey="Churches.Id">
+            </ui-gmap-markers>
         </ui-gmap-google-map>
     </div>
     <div ng-show="displayChurchForm" ng-include="'/Scripts/app/views/churchForm.html'" class="col-md-4"></div>

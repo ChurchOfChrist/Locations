@@ -16,7 +16,7 @@
                             $scope.ChurchMarker.options.visible = true;
                         });
                     }
-                }
+                };
                 var searchEvents = {
                     places_changed: function (searchBox) {
                         console.log(searchBox);
@@ -26,13 +26,27 @@
                         }
                         $scope.map.center = { latitude: places[0].geometry.location.lat(), longitude: places[0].geometry.location.lng() };
                     }
-                }
+                };
+                var mapBoundChanged = function(themap) {
+                    var bounds = themap.getBounds();
+                    var ne = bounds.getNorthEast();
+                    var sw = bounds.getSouthWest();
+                    ChurchService.GetInBox(ne.lng(), ne.lat(), sw.lng(), sw.lat()).success(function(data) {
+                        var markers = data.map(function(church) {
+                            return { id: church.Id, latitude: church.Latitude, longitude: church.Longitude, title: church.Comment };
+                        });
+                        $scope.Churches.Markers.push(markers);
+                    });
+                };
                 $scope.addChurchEvent = function () {
                     $scope.displayChurchForm = !$scope.displayChurchForm;
                     $scope.ChurchMarker.coords = undefined;
                 };
-
-                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent } };
+                $scope.Churches = {
+                    Markers: [],
+                    Id: 0
+                };
+                $scope.map = { center: { latitude: 18.4667, longitude: -69.9499 }, zoom: 8, events: { click: clickEvent, bounds_changed: mapBoundChanged } };
                 $scope.searchbox = { template: 'searchbox.tpl.html', events: searchEvents, parentDiv: 'searchDiv' };
                 uiGmapGoogleMapApi.then(function (maps) {
                     if ($routeParams.address) {
@@ -51,21 +65,6 @@
                         }
                     }
                 };
-
-                //TODO: Load Church logic
-                /*var bounds = themap.getBounds();
-                var ne = bounds.getNorthEast();
-                var sw = bounds.getSouthWest();
-                $http.get('/home/PointsInTheBox', {
-                    params: {
-                        nelng: ne.lng(),
-                        nelt: ne.lat(),
-                        swlng: sw.lng(),
-                        swlt: sw.lat()
-                    }
-                }).success(function (data) {
-                    $log.log(data);//TODO: Display the markets on the map
-                });*/
             }
         ]);
 })();

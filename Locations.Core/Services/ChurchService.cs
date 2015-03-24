@@ -22,8 +22,8 @@ namespace Locations.Core.Services
 
             var toadd = new Church
             {
-                Lat = church.Lat,
-                Lng = church.Lng,
+                Lat = church.Latitude,
+                Lng = church.Longitude,
                 Contacts = church.Contacts.Select(c => c.ToEntity()).ToList(),
                 WorshipDays = church.WorshipDays.Select(w => w.ToEntity()).ToList(),
                 Comment = church.Comment

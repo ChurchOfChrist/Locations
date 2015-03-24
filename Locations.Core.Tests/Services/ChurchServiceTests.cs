@@ -38,11 +38,11 @@ namespace Locations.Core.Tests.Services
         {
             var church = new ChurchViewModel
             {
-                Lat = 18.765913990627432,
-                Lng = -69.6533203125,
+                Latitude = 18.765913990627432,
+                Longitude = -69.6533203125,
             };
             Service.Add(church).ShouldBeFalse();
-            _manager.Db.Churches.Any(c => c.Lat == church.Lat && c.Lng == church.Lng).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Lat == church.Latitude && c.Lng == church.Longitude).ShouldBeFalse();
         }
 
 
@@ -52,15 +52,15 @@ namespace Locations.Core.Tests.Services
             var contactList = EntitySeed.DefaultContacts.ToList();
             var church = new ChurchViewModel
             {
-                Lat = 18.765913990627432,
-                Lng = -69.6533203125,
+                Latitude = 18.765913990627432,
+                Longitude = -69.6533203125,
                 Contacts = contactList,
                 WorshipDays = EntitySeed.DefaultWorshipDays,
             };
             Service.Add(church).ShouldBeTrue();
             var added = _manager.Db.Churches.FirstOrDefault(c =>
-                c.Lat == church.Lat &&
-                c.Lng == church.Lng);
+                c.Lat == church.Latitude &&
+                c.Lng == church.Longitude);
 
             added.ShouldNotBeNull();
             added.Contacts.Any().ShouldBeTrue();
@@ -73,12 +73,12 @@ namespace Locations.Core.Tests.Services
         {
             var church = new ChurchViewModel
             {
-                Lat = 18.765913990627432,
-                Lng = -69.6533203125,
+                Latitude = 18.765913990627432,
+                Longitude = -69.6533203125,
                 Contacts = EntitySeed.DefaultContacts.ToList()
             };
             Service.Add(church).ShouldBeFalse();
-            _manager.Db.Churches.Any(c => c.Lat == church.Lat && c.Lng == church.Lng).ShouldBeFalse();
+            _manager.Db.Churches.Any(c => c.Lat == church.Latitude && c.Lng == church.Longitude).ShouldBeFalse();
         }
 
 
@@ -88,15 +88,15 @@ namespace Locations.Core.Tests.Services
             var worshipDays = EntitySeed.DefaultWorshipDays;
             var church = new ChurchViewModel
             {
-                Lat = 18.765913990627432,
-                Lng = -69.6533203125,
+                Latitude = 18.765913990627432,
+                Longitude = -69.6533203125,
                 Contacts = EntitySeed.DefaultContacts.ToList(),
                 WorshipDays = worshipDays
             };
             Service.Add(church).ShouldBeTrue();
             var added = _manager.Db.Churches.FirstOrDefault(c =>
-                c.Lat == church.Lat &&
-                c.Lng == church.Lng);
+                c.Lat == church.Latitude &&
+                c.Lng == church.Longitude);
 
             added.ShouldNotBeNull();
             added.Contacts.Any().ShouldBeTrue();
@@ -111,8 +111,8 @@ namespace Locations.Core.Tests.Services
         {
             var church = new ChurchViewModel
             {
-                Lat = 18.765913990627432,
-                Lng = -69.6533203125,
+                Latitude = 18.765913990627432,
+                Longitude = -69.6533203125,
                 Contacts = EntitySeed.DefaultContacts,
                 WorshipDays = EntitySeed.DefaultWorshipDays,
             };
